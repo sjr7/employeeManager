@@ -3,7 +3,7 @@
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
-classes/*
+/web/WEB-INF/classes/**
 /.idea/**
 
 # Package Files #
