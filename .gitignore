@@ -1,0 +1,14 @@
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/do
+~
+/d/workspace/employeeManager/.gitignore[+] [unix] (22:06 17/12/2016)              14,31 Bot
