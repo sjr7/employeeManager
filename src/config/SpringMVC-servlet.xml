@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <!--设置自动扫描-->
+    <context:component-scan base-package="com.suny"></context:component-scan>
+
+    <!--开启注释-->
+    <mvc:annotation-driven></mvc:annotation-driven>
+
+    <!--开启静态资源过滤-->
+    <mvc:default-servlet-handler/>
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"></mvc:mapping>   <!-- 配置要拦截的链接-->
+            <mvc:exclude-mapping path="/css/**"></mvc:exclude-mapping>   <!--放行登陆页-->
+            <mvc:exclude-mapping path="/common/**"></mvc:exclude-mapping>   <!--放行登陆页-->
+            <mvc:exclude-mapping path="/script/**"></mvc:exclude-mapping>   <!--放行登陆页-->
+            <mvc:exclude-mapping path="/fonts/**"></mvc:exclude-mapping>   <!--放行登陆页-->
+            <mvc:exclude-mapping path="/images/**"></mvc:exclude-mapping>   <!--放行登陆页-->
+            <mvc:exclude-mapping path="/user/loginPage"></mvc:exclude-mapping>   <!--放行登陆页-->
+            <mvc:exclude-mapping path="/user/login"></mvc:exclude-mapping>   <!--放行登陆请求-->
+            <mvc:exclude-mapping path="/user/adminWeb"></mvc:exclude-mapping>   <!--放行管理员页面-->
+            <mvc:exclude-mapping path="/user/userWeb"></mvc:exclude-mapping>   <!--放行用户主页-->
+            <mvc:exclude-mapping path="/user/checkLogin"></mvc:exclude-mapping>   <!--放行ajax验证用户名-->
+            <mvc:exclude-mapping path="/code/**"></mvc:exclude-mapping>   <!--放行ajax验证用户名-->
+            <bean class="com.suny.interceptor.UserInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!--配置springmvc的视图解析地址-->
+    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+
+    <!--文件上传限制-->
+
+    <!--defaultEncoding="UTF-8" 是请求的编码格式，默认为iso-8859-1
+    maxUploadSize="5400000" 是上传文件的大小，单位为字节
+    uploadTempDir="fileUpload/temp" 为上传文件的临时路径
+    -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+          p:defaultEncoding="UTF-8"
+          p:maxUploadSize="5400000"
+          p:uploadTempDir="/upload"
+            >
+    </bean>
+
+
+</beans>
+
+
+
+
+
+
+
+
+
