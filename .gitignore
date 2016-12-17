@@ -10,6 +10,7 @@ classes/**
 *.jar
 *.war
 *.ear
+*.class
 
 # virtual machine crash logs, see http://www.java.com/en/do
 ~
