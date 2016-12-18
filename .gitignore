@@ -3,8 +3,8 @@
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
-/web/WEB-INF/classes/**
-/.idea/**
+
+
 
 # Package Files #
 *.jar
@@ -12,7 +12,15 @@
 *.ear
 *.class
 *.iml
-
+# NOt show in github
+ /web/WEB-INF/classes/**
+ /.idea/**
+ /src/rebel.xml
 # virtual machine crash logs, see http://www.java.com/en/do
 ~
 /d/workspace/employeeManager/.gitignore[+] [unix] (22:06 17/12/2016)              14,31 Bot
+.idea/
+web/WEB-INF/classes/
+web/WEB-INF/lib/
+web/WEB-INF/pages/home/
+web/upload/

@@ -60,6 +60,7 @@
                 $("#verifyCode").attr('src',"${pageContext.request.contextPath}/code/verifyCode?"+Math.random());
 
             });
+            alert("测试数据生效");
         })
     </script>
     <style>
