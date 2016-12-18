@@ -13,6 +13,7 @@ IDE：`Intellij IDEA 14.0`
  - 核心框架:`Spring Framework 4.0`
  - 持久层框架:`Hibernate4.0`
  - 数据库连接池:`C3P0`
+ <br/>
  工具类：
  - `Apache fileupload 文件上传组件`
  - `Apache commons-collections 封装好的各种集合类和集合工具类`
