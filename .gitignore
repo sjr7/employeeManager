@@ -11,6 +11,7 @@
 *.war
 *.ear
 *.class
+*.iml
 
 # virtual machine crash logs, see http://www.java.com/en/do
 ~
