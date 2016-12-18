@@ -1,10 +1,16 @@
 package com.suny.service.impl;
 
+import com.suny.dao.impl.AttendTypeDao;
 import com.suny.dao.impl.EmployeeDao;
 import com.suny.dao.impl.ManagerDao;
+import com.suny.entity.Attend;
+import com.suny.entity.AttendType;
 import com.suny.entity.Employee;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 成员管理相关的代码
@@ -17,6 +23,25 @@ public class EmpManagerService {
     private ManagerDao managerDao;
     @Autowired
     private EmployeeDao employeeDao;
+    @Autowired
+    private AttendTypeDao<AttendType> attendTypeDao;
+
+    @Test
+    public void autoPunch(){
+        System.out.println("自动插入缺勤记录");
+        List<Employee> employeeList=managerDao.findAll();    //获取数据库中所有的普通成员
+        //获取当前的时间
+        String dutyDay =new java.sql.Date(System.currentTimeMillis()).toString();
+        for(Employee employee:employeeList){    //遍历list对象
+            //获取旷工对应的考勤类型
+            AttendType attendType= attendTypeDao.get(AttendType.class,1);
+            Attend attend=new Attend();     //实例化一条考勤记录
+            attend.setDutyDay(dutyDay);     //设置自动添加考勤记录的时间
+            attend.setAttendType(attendType);    //设置考勤类型
+            attend.setEmployee(employee);      //设置考勤记录对应着的成员
+            attendTypeDao.save(attend);       //保存一条考勤记录
+        }
+    }
 
 
     /**

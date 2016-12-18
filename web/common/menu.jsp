@@ -125,11 +125,11 @@
 <body>
 <div id="nav">
     <%--<h2>所有类目</h2>--%>
-    <a href="${pageContext.request.contextPath}/employee/studentDetail" target="content" class="menu_list">
+    <a href="${pageContext.request.contextPath}/employee/employeeDetail" target="content" class="menu_list">
         <img src="${pageContext.request.contextPath}/images/view.png" class="icon view"/>
         <span>查看学生信息</span>
     </a>
-    <a href="${pageContext.request.contextPath}/employee/manageStudentList" target="content" class="menu_list">
+    <a href="${pageContext.request.contextPath}/employee/manageEmployeeList" target="content" class="menu_list">
         <img src="${pageContext.request.contextPath}/images/manage.png" class="icon view"/>
         <span>学生信息管理</span>
     </a>

@@ -43,7 +43,7 @@
                     this.value = "";
                     return;
                 }
-                window.location.href = "${pageContext.request.contextPath}/employee/studentDetail/?currentPage=" + val;
+                window.location.href = "${pageContext.request.contextPath}/employee/employeeDetail/?currentPage=" + val;
             });
 
             $("#selectNo").val("${page.currentPage}");   //跳转不同页后下拉框为当前页页码
@@ -127,7 +127,7 @@
                                      </td>
                                      <td><a href="${pageContext.request.contextPath}/Delete/${s.num}"
                                             class="btn btn-danger delete">删除</a></td>--%>
-                    <td><a href="${pageContext.request.contextPath}/employee/viewStudentDetail/${a.id}"
+                    <td><a href="${pageContext.request.contextPath}/employee/personDetail/${a.id}"
                            class="btn btn-success">查看详细信息</a>
                     </td>
 
@@ -142,17 +142,17 @@
 
     </table>
     <c:if test="${! empty page}">
-        <a href="${pageContext.request.contextPath}/employee/studentDetail?currentPage=${page.getTopPageNo()}"
+        <a href="${pageContext.request.contextPath}/employee/employeeDetail?currentPage=${page.getTopPageNo()}"
            class="btn btn-primary btn-lg">首页</a>
-        <a href="${pageContext.request.contextPath}/employee/studentDetail?currentPage=${page.getPrevious()}"
+        <a href="${pageContext.request.contextPath}/employee/employeeDetail?currentPage=${page.getPrevious()}"
            class="btn btn-success btn-lg">上一页</a><a
-            href="${pageContext.request.contextPath}/employee/studentDetail?currentPage=${page.getNext()}"
+            href="${pageContext.request.contextPath}/employee/employeeDetail?currentPage=${page.getNext()}"
             class="btn btn-info btn-lg">下一页</a>
-        <a href="${pageContext.request.contextPath}/employee/studentDetail?currentPage=${page.getBottom()}"
+        <a href="${pageContext.request.contextPath}/employee/employeeDetail?currentPage=${page.getBottom()}"
            class="btn btn-warning btn-lg">末页</a>
     </c:if>
     <c:if test="${ empty page}">
-        <a href="${pageContext.request.contextPath}/employee/studentDetail?currentPage=1"
+        <a href="${pageContext.request.contextPath}/employee/employeeDetail?currentPage=1"
            class="btn btn-primary btn-lg">首页</a>
         <a href="#"
            class="btn btn-success btn-lg">上一页</a>

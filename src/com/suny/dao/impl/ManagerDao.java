@@ -15,13 +15,24 @@ import java.util.List;
  * 2016/12/12 13:00
  */
 @Repository
-public class ManagerDao {
+public class ManagerDao<T> {
     @Autowired
     private SessionFactory sessionFactory;
 
     public Session getSession() {
         return sessionFactory.getCurrentSession();      //返回session
     }
+
+    /**
+     * 查询所有普通成员的信息
+     * @return   所有普通成员的信息
+     */
+    public List<Employee> findAll(){
+        String hql="from Employee ";
+        Query query = getSession().createQuery(hql);
+        return query.list();
+    }
+
 
     /**
      * 查询账号对应的用户信息

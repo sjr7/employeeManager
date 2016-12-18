@@ -63,7 +63,7 @@
 <hr>
 <h3>${username}</h3>，欢迎您 <a href="#" id="exit">安全退出</a>
 <hr>
-  <a href="${pageContext.request.contextPath}/employee/viewUserDetail/${id}">个人中心</a>
+  <a href="${pageContext.request.contextPath}/employee/viewEmployeeDetail/${id}">个人中心</a>
   <a href="#">签到</a>
 
 </body>

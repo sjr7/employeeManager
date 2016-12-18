@@ -43,11 +43,11 @@ public class EmployeeController {
      * @param modelMap   包含属性的map
      * @return    返回查看个人信息页面
      */
-    @RequestMapping("viewUserDetail/{id}")
-    public String viewUserDetail(@PathVariable("id")Integer id,ModelMap modelMap){
+    @RequestMapping("viewEmployeeDetail/{id}")
+    public String viewEmployeeDetail(@PathVariable("id")Integer id,ModelMap modelMap){
         Employee employee=employeeService.getById(id);    //通过当前用户的id进行查询当前用户的信息
         modelMap.addAttribute("employee",employee);   //保存成员要查看的个人信息
-        return "/pages/userView/studentDetail";
+        return "/pages/userView/viewEmployee";
     }
 
 
@@ -60,7 +60,7 @@ public class EmployeeController {
     @RequestMapping(value = "/modifyOperation/{id}", method = RequestMethod.POST)
     public String modifyOperation(@PathVariable("id") Integer id, Employee employee) {
         employeeService.modifyOperation(employee, id);                       //把要修改的成员信息页面提交给service
-        return "redirect:/manageStudentAction/manageStudent";      //重定向到成员管理页面
+        return "redirect:/manageEmployeeAction/manageEmployee";      //重定向到成员管理页面
     }
 
     /**
@@ -84,7 +84,7 @@ public class EmployeeController {
     @RequestMapping(value = "/deleteOperation/{id}", method = RequestMethod.GET)
     public String deleteOperation(@PathVariable("id") Integer id) {
         employeeService.deleteOperation(id);            //传入要删除的成员的id
-        return "redirect:/employee/manageStudentList";
+        return "redirect:/employee/manageEmployeeList";
     }
 
     /**
@@ -95,7 +95,7 @@ public class EmployeeController {
     @RequestMapping("/addOperation")
     public String addOperation(Employee employee) {
         employeeService.addOperation(employee);      //把employee对象传到数据操作层进行保存
-        return "redirect:/employee/manageStudentList";
+        return "redirect:/employee/manageEmployeeList";
     }
 
     /**
@@ -104,21 +104,21 @@ public class EmployeeController {
      */
     @RequestMapping("/viewAddOperation")
     public String viewAddOperation() {
-        return "pages/adminView/addStudent";
+        return "pages/adminView/addEmployee";
     }
 
 
     /**
-     * 查看某个成员详情页面
+     * 管理员查看某个成员详情页面
      * @param id   要查看的成员的主键标识id
      * @param modelMap    包含数据的模型
      * @return    查看成员属性的页面
      */
-    @RequestMapping("/viewStudentDetail/{id}")
-    public String viewStudentDetail(@PathVariable("id") Integer id, ModelMap modelMap) {
+    @RequestMapping("/personDetail/{id}")
+    public String personDetail(@PathVariable("id") Integer id, ModelMap modelMap) {
         Employee employee = employeeService.getById(id);     //传递id给service
         modelMap.addAttribute("employee", employee);        //把查询到的值的数据传递给前端页面
-        return "/pages/adminView/viewStudent";
+        return "/pages/adminView/viewEmployee";
     }
 
     /**
@@ -142,7 +142,7 @@ public class EmployeeController {
         modelMap.addAttribute("employeeList", employeeList);    //添加查询的数据到modelMap中
         modelMap.addAttribute("value", username);     //添加name到modelMap中
         modelMap.addAttribute("page", page);     //添加page对象到modelMpa
-        return "pages/adminView/studentsList";
+        return "pages/adminView/employeesList";
     }
 
     /**
@@ -151,8 +151,8 @@ public class EmployeeController {
      * @param modelMap   包含数据的模型
      * @return   带分页数据后的成员信息管理页面
      */
-    @RequestMapping("/manageStudentList")
-    public String manageStudent(HttpServletRequest request, ModelMap modelMap) {
+    @RequestMapping("/manageEmployeeList")
+    public String manageEmployee(HttpServletRequest request, ModelMap modelMap) {
         int pageCount = 5;                                //设置每页显示的行数
         String currentPage = request.getParameter("currentPage");    //获取当前页
         if (currentPage == null || currentPage.equals("0")) {      //设置默认页为1
@@ -166,7 +166,7 @@ public class EmployeeController {
         modelMap.addAttribute("page", page);         //添加page对象到modelMap中
         List employeeList = page.getPageDate();       //获取page对象中的分页数据
         modelMap.addAttribute("employeeList", employeeList);   //把分页数据集合保存到session中
-        return "pages/adminView/manageStudent";
+        return "pages/adminView/manageEmployee";
     }
 
     /**
@@ -175,8 +175,8 @@ public class EmployeeController {
      * @param request   页面发来的请求
      * @return   进入管理成员信息页面
      */
-    @RequestMapping("/studentDetail")
-    public String student_view(ModelMap modelMap, HttpServletRequest request) {
+    @RequestMapping("/employeeDetail")
+    public String employee_view(ModelMap modelMap, HttpServletRequest request) {
         int pageCount = 5;                                           //分页每页显示的行数
         String currentPage = request.getParameter("currentPage");       //获取当前页页码
         if (currentPage == null || currentPage.equals("0")) {         //如果当前页为空或者为0的话默认为第1页
@@ -191,7 +191,7 @@ public class EmployeeController {
         List employeeList = page.getPageDate();
         modelMap.addAttribute("employeeList", employeeList);
 
-        return "pages/adminView/studentsList";      //进行成员信息列表页面
+        return "pages/adminView/employeeList";      //进行成员信息列表页面
     }
 
 

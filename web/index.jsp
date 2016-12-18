@@ -60,7 +60,6 @@
                 $("#verifyCode").attr('src',"${pageContext.request.contextPath}/code/verifyCode?"+Math.random());
 
             });
-            alert("测试数据生效");
         })
     </script>
     <style>
@@ -113,7 +112,7 @@
                         </div>
                         <div class="hidden text-center" id="pwdMsg"><span class="glyphicon glyphicon-exclamation-sign"></span>用户名密码错误</div>
                     </div>
-                    <div class="form-group">
+                  <%--  <div class="form-group">
                         <label for="checkCode" class="col-sm-4 control-label">验证码</label>
                         <div class="row">
                             <div class="col-sm-1">
@@ -124,8 +123,8 @@
                                 <img border="0" style="cursor:pointer" alt="点击刷新验证码" src="${pageContext.request.contextPath}/code/verifyCode" id="verifyCode">
                             </div>
                         </div>
-                    </div>
-                    <%--<div class="form-group-lg" id="code">
+                    </div>--%>
+                    <div class="form-group-lg" id="code">
                         <label class="sr-only" for="checkCode">验证码</label>
                         <div class="input-group col-xs-15">
                             <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
@@ -134,7 +133,7 @@
                         </div>
                     </div>
                     <img id="verifyCode" src="${pageContext.request.contextPath}/code/verifyCode"/>
-                    <label><a href="#" id="changeCode">换一张</a></label>--%>
+                    <label><a href="#" id="changeCode">换一张</a></label>
                     <span id="error_msg_password" style="color: #0066cc;font-weight: bold;font-size: 19px">${error}</span>
 
 

@@ -61,7 +61,7 @@
 
 
 </table>
-<a href="${pageContext.request.contextPath}/employee/studentDetail" class="btn btn-primary btn-lg">返回学生信息列表</a>
+<a href="${pageContext.request.contextPath}/employee/employeeDetail" class="btn btn-primary btn-lg">返回学生信息列表</a>
 
 </body>
 </html>

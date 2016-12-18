@@ -29,7 +29,7 @@
             $(window).bind("beforeunload", function () {
                 return "您想跳转到别的窗口吗？";
             });
-            $("#Student_id").blur(function () {
+            $("#employee_id").blur(function () {
                 var val = this.value;
                 val = $.trim(val);
                 this.value = val;
@@ -38,7 +38,7 @@
                     alert("学号只运行输入数字");
                 }
             });
-            $("#Student_name").blur(function () {
+            $("#employee_name").blur(function () {
                 var val = this.value;
                 val = $.trim(val);
                 this.value = val;
@@ -47,7 +47,7 @@
                     alert("姓名只能为汉字");
                 }
             });
-            $("#Student_sex").blur(function () {
+            $("#employee_sex").blur(function () {
                 var val = this.value;
                 val = $.trim(val);
                 this.value = val;
@@ -56,7 +56,7 @@
                     alert("性别只能为男或者女");
                 }
             });
-            $("#Student_room").blur(function () {
+            $("#employee_room").blur(function () {
                 var val = this.value;
                 val = $.trim(val);
                 this.value = val;
@@ -65,7 +65,7 @@
                     alert("寝室号样例为  4#608  ，按照自身寝室号修改");
                 }
             });
-            $("#Parents_tel,.Student_tel").blur(function () {
+            $("#Parents_tel,.employee_tel").blur(function () {
                 var val = this.value;
                 val = $.trim(val);
                 this.value = val;
@@ -79,14 +79,14 @@
                 if (!flag) {
                     return false;
                 }
-                var adress=$("#Student_adress").value();
-                var id=$("#Student_id").value();
-                var name=$("#Student_name").value();
-                var sex=$("#Student_sex").value();
-                var room=$("#Student_room").value();
-                var studenttel=$("#Student_tel").value();
+                var adress=$("#employee_adress").value();
+                var id=$("#employee_id").value();
+                var name=$("#employee_name").value();
+                var sex=$("#employee_sex").value();
+                var room=$("#employee_room").value();
+                var employeetel=$("#employee_tel").value();
                 var parenttel=$("#Parents_tel").value();
-                if(adress ==null || id==null || name==null|| sex==null|| room==null|| studenttel==null|| parenttel==null){
+                if(adress ==null || id==null || name==null|| sex==null|| room==null|| employeetel==null|| parenttel==null){
                     alert("请检查您是否有未输入的地方");
                     return false;
                 }
@@ -96,35 +96,35 @@
     </script>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/student/addOperation" method="post" role="form">
-    <%--<input type="hidden" value="${student.num}" name="num">--%>
+<form action="${pageContext.request.contextPath}/employee/addOperation" method="post" role="form">
+    <%--<input type="hidden" value="${employee.num}" name="num">--%>
     <div class="form-group" style="width: 400px;margin: 0 auto">
         <label>序列号</label>
-        <input type="text" class="form-control " id="id" name="id" value="${student.id}" required/>
+        <input type="text" class="form-control " id="id" name="id" value="${employee.id}" required/>
         <br>
 
         <label>姓名</label>
-        <input type="text" class="form-control " id="userName" name="userName" value="${student.username}"
+        <input type="text" class="form-control " id="userName" name="userName" value="${employee.username}"
                required/><br>
 
         <label>分院</label>
-        <input type="text" class="form-control " id="college" name="college" value="${student.college}" required/><br>
+        <input type="text" class="form-control " id="college" name="college" value="${employee.college}" required/><br>
 
         <label>班级</label>
-        <input type="text" class="form-control " id="className" name="className" value="${student.className}"
+        <input type="text" class="form-control " id="className" name="className" value="${employee.className}"
                required/><br>
 
         <label>班主任</label>
-        <input type="text" class="form-control " id="teacher" name="teacher" value="${student.teacher}" required/><br>
+        <input type="text" class="form-control " id="teacher" name="teacher" value="${employee.teacher}" required/><br>
 
         <label>电话</label>
-        <input type="text" class="form-control " id="tel" name="tel" value="${student.tel}" required/><br>
+        <input type="text" class="form-control " id="tel" name="tel" value="${employee.tel}" required/><br>
 
         <label>寝室号</label>
-        <input type="text" class="form-control " id="bedroom" name="bedroom" value="${student.bedroom}" required/><br>
+        <input type="text" class="form-control " id="bedroom" name="bedroom" value="${employee.bedroom}" required/><br>
 
         <input class="btn btn-warning btn-lg " id="submit" type="submit" value="提交"/>
-        <a href="${pageContext.request.contextPath}/student/manageStudentList" class="btn btn-primary btn-lg index">返回学生信息列表</a>
+        <a href="${pageContext.request.contextPath}/employee/manageemployeeList" class="btn btn-primary btn-lg index">返回学生信息列表</a>
     </div>
 </form>
 </body>

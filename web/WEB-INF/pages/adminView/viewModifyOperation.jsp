@@ -102,7 +102,7 @@
         <input type="text" class="form-control " id="bedroom" name="bedroom" value="${employee.bedroom}" required/><br>
 
         <input class="btn btn-warning btn-lg " id="submit" type="submit" value="提交"/>
-        <a href="${pageContext.request.contextPath}/employee/manageStudentList" class="btn btn-primary btn-lg index">返回学生信息列表</a>
+        <a href="${pageContext.request.contextPath}/employee/manageEmployeeList" class="btn btn-primary btn-lg index">返回学生信息列表</a>
     </div>
 </form>
 </body>

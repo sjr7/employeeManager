@@ -55,6 +55,7 @@
 
 <body>
 <div class="container">
+    <a href="${pageContext.request.contextPath}/manager/punch">点击给所有成员添加缺勤缺勤记录</a>
     输入姓名查询 &nbsp;&nbsp;&nbsp;
     <form action="${pageContext.request.contextPath}/attend/getByName" method="post" id="selectByName">
         <label>
