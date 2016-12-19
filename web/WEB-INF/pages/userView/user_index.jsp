@@ -46,33 +46,44 @@
             return num;
         }
         $(function () {
-            $("#exit").click(function () {
-                var username = $("#username").text();
-                var flag = confirm(username + "你确定要退出吗？");
-                if (!flag) {
-                    return false;
-                }
-                else {
-                    window.parent.location.href = "${pageContext.request.contextPath}/";
-                }
-            });
-            $("#Punch").click(function () {
-                var username="${username}";
-                alert("我在测试");
+            $("#punch").click(function () {
+                alert("开始签到");
+                var username = "${username}";
                 $.ajax({
                             type: "POST",
                             url: "${pageContext.request.contextPath}/employee/punch",
-                            success:function(result){
-                                if(result === "true"){
-                                    alert("可以签到");
+                            success: function (result) {
+                                if (result === "null") {
+                                    alert("你是不是还没有登陆");
                                 }
-                                else if(result === "false"){
-                                    alert("还不能签到现在");
+                                else if (result === "notPunch") {
+                                    alert("还不能现在签到");
+                                }
+                                else if (result === "repeatPunch") {
+                                    alert("重复签到了");
+                                }
+                                else if (result === "successPunch") {
+                                    alert("成功签到！");
                                 }
                             }
                         }
                 )
             });
+            $("#validPunch").click(function(){
+                var username = "${username}";
+                $.ajax({
+                    type:"POST",
+                    url:"${pageContext.request.contextPath}/employee/validPunch?username="+username,
+                    success:function(result){
+                        if(result === "true"){
+                            alert("可以签到");
+                        }
+                        else if(result === "false"){
+                            alert("暂时还不能签到")
+                        }
+                    }
+                })
+            })
         })
 
     </script>
@@ -80,10 +91,11 @@
 <body>
 现在是<h3><span id="time"></span></h3>
 <hr>
-<h3>${username}</h3>，欢迎您 <a href="${pageContext.request.contextPath}/user/Logout" id="exit">安全退出</a>
+<h3>${username}</h3>，欢迎您 <a href="${pageContext.request.contextPath}/user/userLogout" id="exit">安全退出</a>
 <hr>
 <a href="${pageContext.request.contextPath}/employee/viewEmployeeDetail/${id}">个人中心</a>
-<a href="#" id="Punch">签到</a>
+<a href="#" id="validPunch">检测是否可以签到</a>
+<a href="#" id="punch">签到</a>
 
 </body>
 </html>

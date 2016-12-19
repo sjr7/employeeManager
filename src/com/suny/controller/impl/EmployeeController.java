@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -42,13 +44,39 @@ public class EmployeeController {
     }
 
     /**
+     * 成员签到
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping("/punch")
+    public void punch(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrintWriter printWriter=response.getWriter();
+        String username= (String) request.getSession().getAttribute("username");   //获取要签到的用户名
+        int status= employeeService.punch(username);
+        if(status ==0 ){
+            printWriter.write("null");
+        }
+        else if(status == 1){
+            printWriter.write("notPunch");
+        }
+        else if(status == 2){
+            printWriter.write("repeatPunch");
+        }
+        else if(status == 3){
+            printWriter.write("successPunch");
+        }
+        printWriter.close();
+    }
+
+    /**
      * 验证是否可以进行签到
      * @param request    request请求对象
      * @return     是否可以进行打卡
      * @throws Exception
      */
-    @RequestMapping(value = "/punch")
-    public void punch(HttpServletRequest request,HttpServletResponse response) throws Exception {
+    @RequestMapping(value = "/validPunch")
+    public void validPunch(HttpServletRequest request,HttpServletResponse response) throws Exception {
         PrintWriter printWriter=response.getWriter();
         String username= (String) request.getSession().getAttribute("username");     // 获取请求中的用户名
         int status=employeeService.validPunch(username);      //  验证是否可以进行签到

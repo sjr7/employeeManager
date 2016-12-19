@@ -158,7 +158,7 @@
     <div id="click">
         <a href="${pageContext.request.contextPath}/password/viewChangePassword" target="content"
            id="changePassword">修改密码</a>
-        <a href="${pageContext.request.contextPath}/user/Logout" id="exit">安全退出</a>
+        <a href="${pageContext.request.contextPath}/user/logout" id="exit">安全退出</a>
     </div>
 </div>
 </body>

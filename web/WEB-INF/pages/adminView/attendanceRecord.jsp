@@ -49,13 +49,26 @@
             });
 
             $("#selectNo").val("${page.currentPage}");   //跳转不同页后下拉框为当前页页码
+
+            $("#autoPunch").click(function(){
+                $.ajax({
+                    type: "POST",
+                    url: "${pageContext.request.contextPath}/manager/punch",
+                    success: function (result) {
+                        if (result === "true") {
+                            alert(" 给所有成员添加缺勤记录成功!");
+                        }
+                    }
+                })
+            });
+
         })
     </script>
 </head>
 
 <body>
 <div class="container">
-    <a href="${pageContext.request.contextPath}/manager/punch">点击给所有成员添加缺勤缺勤记录</a>
+    <a href="#" id="autoPunch">点击开启考勤</a>
     输入姓名查询 &nbsp;&nbsp;&nbsp;
     <form action="${pageContext.request.contextPath}/attend/getByName" method="post" id="selectByName">
         <label>

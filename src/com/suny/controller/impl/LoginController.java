@@ -27,11 +27,24 @@ public class LoginController {
     @Autowired
     private EmpManagerService empManagerService;
 
+
+    /**
+     * 普通成员的退出
+     * 因为管理员页面的退出是要整个窗口显示登陆页面，而用户页面只需要直接打开登陆页面就可以
+     * @param request  request请求
+     * @return   移除session中用户名后返回到登陆界面
+     */
+    @RequestMapping("/userLogout")
+   public String userLogout(HttpServletRequest request){
+       request.getSession().removeAttribute("username");   //移除session用户名
+       return "redirect:/loginPage";    //返回登陆
+   }
+
     /**
      *    处理用户的注销登陆请求，在注销的同时讲保存在session中的用户名进行注销处理
      * @param request  包含用户请求的相关信息
      */
-    @RequestMapping("Logout")
+    @RequestMapping("logout")
     public void logout(HttpServletRequest request) {
         request.getSession().removeAttribute("username");     //移除session中的username属性
     }

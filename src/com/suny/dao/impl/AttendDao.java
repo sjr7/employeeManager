@@ -1,5 +1,6 @@
 package com.suny.dao.impl;
 
+import com.suny.entity.Attend;
 import com.suny.entity.Employee;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -27,6 +28,15 @@ public class AttendDao {
 
 
     /**
+     * 成员签到时修改数据库里面的考勤状态
+     * @param clazz  要更新的实体对象
+     */
+    public void update(Attend attend){
+        getSession().saveOrUpdate(attend);
+    }
+
+
+    /**
      * 通过员工对象以及当前的时间来查找是否有可签到记录
      * @param employee   员工对象
      * @param dutyDay     当天的时间
@@ -37,7 +47,7 @@ public class AttendDao {
         Query query = getSession().createQuery(hql);
         query.setParameter("0",employee);
         query.setParameter("1",dutyDay);
-        return query.list();
+        return (List) query.uniqueResult();
 
     }
 
