@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -27,6 +29,7 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
 
+
     private Page page;
 
 
@@ -36,6 +39,26 @@ public class EmployeeController {
 
     public void setPage(Page<Employee> page) {
         this.page = page;
+    }
+
+    /**
+     * 验证是否可以进行签到
+     * @param request    request请求对象
+     * @return     是否可以进行打卡
+     * @throws Exception
+     */
+    @RequestMapping(value = "/punch")
+    public void punch(HttpServletRequest request,HttpServletResponse response) throws Exception {
+        PrintWriter printWriter=response.getWriter();
+        String username= (String) request.getSession().getAttribute("username");     // 获取请求中的用户名
+        int status=employeeService.validPunch(username);      //  验证是否可以进行签到
+        if(status == 0){
+           printWriter.write("false");
+        }
+        else{
+         printWriter.write("true");
+        }
+       printWriter.close();
     }
 
     /**

@@ -1,12 +1,17 @@
 package com.suny.service.impl;
 
+import com.suny.dao.impl.AttendDao;
 import com.suny.dao.impl.EmployeeDao;
+import com.suny.entity.Attend;
 import com.suny.entity.Employee;
 import com.suny.utils.Page;
 import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,7 +24,36 @@ public class EmployeeService {
     @Autowired
     private EmployeeDao employeeDao;     //注入employeeDao
 
+    @Autowired
+    private AttendDao attendDao;
 
+    /**
+     * 根据用户名查询是否可以签到
+     * @param username    想签到的用户名
+     * @return     是否可以签到的状态码
+     * @throws Exception
+     */
+    public int validPunch(String username) throws Exception {
+        int status = 0;
+        String nowDate=new java.sql.Date(System.currentTimeMillis()).toString();   // 生成一个当前日期
+        DateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+        Date  dutyDay = simpleDateFormat.parse(nowDate);
+        Employee employee=employeeDao.findByEmpName(username);                  //根据用户名查找这个用户
+        if(employee == null){
+            System.out.println("根本就没这个用户");
+            status=0;
+        }
+        List attendList=attendDao.findByEmployeeDutyDay(employee, dutyDay);     //用今天的日期跟员工对象去查找今天的缺勤记录
+        if(attendList ==null || attendList.size() <= 0){
+            System.out.println("还不能签到现在");
+            status= 0;             //返回的状态码
+        }
+        else if (!(attendList == null)){
+            System.out.println("数据库有签到记录，可以签到");
+            status=1;               //返回的状态码
+        }
+        return status;
+    }
 
 
     /**

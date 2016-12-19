@@ -1,11 +1,13 @@
 package com.suny.dao.impl;
 
+import com.suny.entity.Employee;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +23,22 @@ public class AttendDao {
 
     public Session getSession() {
         return sessionFactory.getCurrentSession();      //返回session
+    }
+
+
+    /**
+     * 通过员工对象以及当前的时间来查找是否有可签到记录
+     * @param employee   员工对象
+     * @param dutyDay     当天的时间
+     * @return
+     */
+    public List findByEmployeeDutyDay(Employee employee,Date dutyDay){
+        String hql="from Attend as a where a.employee =?0 and punchTime = ?1";
+        Query query = getSession().createQuery(hql);
+        query.setParameter("0",employee);
+        query.setParameter("1",dutyDay);
+        return query.list();
+
     }
 
 
