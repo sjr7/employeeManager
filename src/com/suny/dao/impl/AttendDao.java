@@ -8,7 +8,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,10 +28,11 @@ public class AttendDao {
 
     /**
      * 成员签到时修改数据库里面的考勤状态
-     * @param clazz  要更新的实体对象
+     * @param attend  要更新的实体对象
      */
     public void update(Attend attend){
-        getSession().saveOrUpdate(attend);
+        getSession().update(attend);
+        getSession().flush();
     }
 
 
@@ -42,12 +42,12 @@ public class AttendDao {
      * @param dutyDay     当天的时间
      * @return
      */
-    public List findByEmployeeDutyDay(Employee employee,Date dutyDay){
-        String hql="from Attend as a where a.employee =?0 and punchTime = ?1";
+    public List findByEmployeeDutyDay(Employee employee, String dutyDay){
+        String hql="from Attend as a where a.employee =?0 and dutyDay = ?1";
         Query query = getSession().createQuery(hql);
         query.setParameter("0",employee);
         query.setParameter("1",dutyDay);
-        return (List) query.uniqueResult();
+        return query.list();
 
     }
 

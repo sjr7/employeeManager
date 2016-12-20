@@ -47,7 +47,6 @@
         }
         $(function () {
             $("#punch").click(function () {
-                alert("开始签到");
                 var username = "${username}";
                 $.ajax({
                             type: "POST",
@@ -69,21 +68,6 @@
                         }
                 )
             });
-            $("#validPunch").click(function(){
-                var username = "${username}";
-                $.ajax({
-                    type:"POST",
-                    url:"${pageContext.request.contextPath}/employee/validPunch?username="+username,
-                    success:function(result){
-                        if(result === "true"){
-                            alert("可以签到");
-                        }
-                        else if(result === "false"){
-                            alert("暂时还不能签到")
-                        }
-                    }
-                })
-            })
         })
 
     </script>
@@ -94,7 +78,6 @@
 <h3>${username}</h3>，欢迎您 <a href="${pageContext.request.contextPath}/user/userLogout" id="exit">安全退出</a>
 <hr>
 <a href="${pageContext.request.contextPath}/employee/viewEmployeeDetail/${id}">个人中心</a>
-<a href="#" id="validPunch">检测是否可以签到</a>
 <a href="#" id="punch">签到</a>
 
 </body>

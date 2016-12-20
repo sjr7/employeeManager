@@ -22,7 +22,7 @@ public class Attend implements Serializable{
     private String dutyDay;
     //签到时间
     @Column(name = "punch_time")
-    private Date punchTime;
+    private java.util.Date punchTime;
     //是否在规定时间签到
     @Column(name = "is_come")
     private boolean isCome;

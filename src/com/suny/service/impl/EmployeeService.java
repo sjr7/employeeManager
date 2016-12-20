@@ -11,10 +11,9 @@ import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -35,69 +34,38 @@ public class EmployeeService {
     private AttendTypeDao attendTypeDao;
 
 
-    public int punch(String username){
+    /**
+     * 执行签到
+     *
+     * @param username 要签到的用户名
+     * @return 是否可以签到
+     */
+    public int punch(String username) {
         Employee employee = employeeDao.findByEmpName(username);
         if (employee == null) {
-             return  0;   //失败
+            return 0;   //失败
         }
-        String nowDate = new java.sql.Date(System.currentTimeMillis()).toString();   // 生成一个当前日期
-        DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dutyDay = null;
-        try {
-            dutyDay = simpleDateFormat.parse(nowDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        Attend attend = (Attend) attendDao.findByEmployeeDutyDay(employee, dutyDay);
-        if(attend == null  ){
+        String dutyDay = new java.sql.Date(System.currentTimeMillis()).toString();   // 生成一个当前日期
+        List<Attend> attendList = attendDao.findByEmployeeDutyDay(employee, dutyDay);    //获取当前缺勤的那条记录
+        if (attendList == null || attendList.size() > 1) {     //  如果没有那条记录的话
             System.out.println("现在还不能签到");
-            return 1;    //现在还不能签到
+            return 1;                                        //现在还不能签到
         }
-        if(attend.getPunchTime() != null){   //如果已经有了签到时间
+        if (attendList.get(0).getPunchTime() != null) {   //如果已经有了签到时间
             System.out.println("已经签到过了");
             return 2;
-        }
-        else{
-
+        } else {
             //接下来就是可以开始签到的时候了
-            int punchTime= Calendar.getInstance().get(Calendar.HOUR_OF_DAY);   // 获取签到的时间,用来判断各种考勤情况
-            attend.setPunchTime(new Date());
+            java.util.Date date = new java.util.Date();          // 获取一个Date对象
+            Timestamp timeStamp = new Timestamp(date.getTime());     //   讲日期时间转换为数据库中的timestamp类型
+            attendList.get(0).setPunchTime(timeStamp);            //设置签到的时间
             //这里就不对签到时间进行各种考勤情况的判定了，要么是正常，要么是缺勤
-            attend.setAttendType((AttendType) attendTypeDao.get(AttendType.class,5));
-            attendDao.update(attend);
+            attendList.get(0).setAttendType((AttendType) attendTypeDao.get(AttendType.class, 5));
+            attendDao.update(attendList.get(0));
             return 3;    //签到成功
         }
 
     }
-
-    /**
-     * 根据用户名查询是否可以签到
-     *
-     * @param username 想签到的用户名
-     * @return 是否可以签到的状态码
-     * @throws Exception
-     */
-    public int validPunch(String username) throws Exception {
-        int status = 0;
-        String nowDate = new java.sql.Date(System.currentTimeMillis()).toString();   // 生成一个当前日期
-        DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date dutyDay = simpleDateFormat.parse(nowDate);
-        Employee employee = employeeDao.findByEmpName(username);                  //根据用户名查找这个用户
-        if (employee == null) {
-            System.out.println("根本就没这个用户");
-            status = 0;
-        }
-        List attendList = attendDao.findByEmployeeDutyDay(employee, dutyDay);     //用今天的日期跟员工对象去查找今天的缺勤记录
-        if (attendList == null || attendList.size() <= 0) {
-            System.out.println("还不能签到现在");
-            status = 0;             //返回的状态码
-        } else if (!(attendList == null)) {
-            System.out.println("数据库有签到记录，可以签到");
-            status = 1;               //返回的状态码
-        }
-        return status;
-    }
-
 
     /**
      * 发送修改密码请求
@@ -107,12 +75,12 @@ public class EmployeeService {
      * @param newPassword 新密码
      */
     public void checkPassword(String username, String oldPassword, String newPassword) {
-        Employee employee = employeeDao.findByEmpName(username);
+        Employee employee = employeeDao.findByEmpName(username);     //  通过当前的用户名去查询一个对应的对象
         if (employee == null) {
             System.out.println("用户不存在，恶意修改密码");
         } else if (employee.getPassword().equals(oldPassword)) {
-            employee.setPassword(newPassword);
-            employeeDao.update(employee);
+            employee.setPassword(newPassword);                        // 设置要修改的新密码
+            employeeDao.update(employee);                   //提交修改密码请求
         }
     }
 

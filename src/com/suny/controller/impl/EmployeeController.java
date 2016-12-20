@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -31,7 +30,6 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
 
-
     private Page page;
 
 
@@ -45,68 +43,53 @@ public class EmployeeController {
 
     /**
      * 成员签到
-     * @param request
-     * @param response
-     * @throws IOException
+     *
+     * @param request  用户的request请求
+     * @param response 服务器对用户的response响应
+     * @throws IOException 向客户端响应的时候可能发生的异常
      */
     @RequestMapping("/punch")
     public void punch(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        PrintWriter printWriter=response.getWriter();
-        String username= (String) request.getSession().getAttribute("username");   //获取要签到的用户名
-        int status= employeeService.punch(username);
-        if(status ==0 ){
-            printWriter.write("null");
+        PrintWriter printWriter = response.getWriter();
+        String username = (String) request.getSession().getAttribute("username");   //获取要签到的用户名
+        int status = employeeService.punch(username);    //  得到一个状态码，进行判断各种结果
+        switch (status) {
+            case 0:
+                printWriter.write("null");
+                break;             // 发生了错误，不能进行签到
+            case 1:
+                printWriter.write("notPunch");
+                break;             // 可以签到，但是还没有签到
+            case 2:
+                printWriter.write("repeatPunch");
+                break;             // 已经签到了，重复签到
+            case 3:
+                printWriter.write("successPunch");
+                break;             //  签到成功
         }
-        else if(status == 1){
-            printWriter.write("notPunch");
-        }
-        else if(status == 2){
-            printWriter.write("repeatPunch");
-        }
-        else if(status == 3){
-            printWriter.write("successPunch");
-        }
-        printWriter.close();
-    }
-
-    /**
-     * 验证是否可以进行签到
-     * @param request    request请求对象
-     * @return     是否可以进行打卡
-     * @throws Exception
-     */
-    @RequestMapping(value = "/validPunch")
-    public void validPunch(HttpServletRequest request,HttpServletResponse response) throws Exception {
-        PrintWriter printWriter=response.getWriter();
-        String username= (String) request.getSession().getAttribute("username");     // 获取请求中的用户名
-        int status=employeeService.validPunch(username);      //  验证是否可以进行签到
-        if(status == 0){
-           printWriter.write("false");
-        }
-        else{
-         printWriter.write("true");
-        }
-       printWriter.close();
+        printWriter.close();           //关闭输出流
     }
 
     /**
      * 成员在个人中心查看个人信息请求
-     * @param modelMap   包含属性的map
-     * @return    返回查看个人信息页面
+     *
+     * @param modelMap 包含属性的map
+     * @return 返回查看个人信息页面
      */
     @RequestMapping("viewEmployeeDetail/{id}")
-    public String viewEmployeeDetail(@PathVariable("id")Integer id,ModelMap modelMap){
-        Employee employee=employeeService.getById(id);    //通过当前用户的id进行查询当前用户的信息
-        modelMap.addAttribute("employee",employee);   //保存成员要查看的个人信息
+    public String viewEmployeeDetail(@PathVariable("id") Integer id, ModelMap modelMap) {
+        Employee employee = employeeService.getById(id);    //通过当前用户的id进行查询当前用户的信息
+        modelMap.addAttribute("employee", employee);   //保存成员要查看的个人信息
         return "/pages/userView/viewEmployee";
     }
 
 
     /**
      * 提交修改成员信息操作
-     * @param id 用户对应的主键标示id
-     * @param employee    一个包含属性的employee对象集合
-     * @return    操作经过处理后重定向到成员信息管理页面
+     *
+     * @param id       用户对应的主键标示id
+     * @param employee 一个包含属性的employee对象集合
+     * @return 操作经过处理后重定向到成员信息管理页面
      */
     @RequestMapping(value = "/modifyOperation/{id}", method = RequestMethod.POST)
     public String modifyOperation(@PathVariable("id") Integer id, Employee employee) {
@@ -116,9 +99,10 @@ public class EmployeeController {
 
     /**
      * 进入修改成员页面
-     * @param id   要修改的用户主键标识id
-     * @param modelMap    包含属性的模型
-     * @return     进入对应成员的修改资料页面
+     *
+     * @param id       要修改的用户主键标识id
+     * @param modelMap 包含属性的模型
+     * @return 进入对应成员的修改资料页面
      */
     @RequestMapping(value = "viewModifyOperation/{id}")
     public String viewModifyOperation(@PathVariable("id") Integer id, ModelMap modelMap) {
@@ -128,9 +112,10 @@ public class EmployeeController {
     }
 
     /**
-     *  删除成员操作
-     * @param id   要删除的成员主键标识id
-     * @return    操作成功后重定向到成员管理页面
+     * 删除成员操作
+     *
+     * @param id 要删除的成员主键标识id
+     * @return 操作成功后重定向到成员管理页面
      */
     @RequestMapping(value = "/deleteOperation/{id}", method = RequestMethod.GET)
     public String deleteOperation(@PathVariable("id") Integer id) {
@@ -140,8 +125,9 @@ public class EmployeeController {
 
     /**
      * 增加成员数据操作
-     * @param employee  包含成员信息的集合
-     * @return      重定向到成员管理页面
+     *
+     * @param employee 包含成员信息的集合
+     * @return 重定向到成员管理页面
      */
     @RequestMapping("/addOperation")
     public String addOperation(Employee employee) {
@@ -151,7 +137,8 @@ public class EmployeeController {
 
     /**
      * 进入增加成员数据界面
-     * @return   增加成员信息表单页面
+     *
+     * @return 增加成员信息表单页面
      */
     @RequestMapping("/viewAddOperation")
     public String viewAddOperation() {
@@ -161,9 +148,10 @@ public class EmployeeController {
 
     /**
      * 管理员查看某个成员详情页面
-     * @param id   要查看的成员的主键标识id
-     * @param modelMap    包含数据的模型
-     * @return    查看成员属性的页面
+     *
+     * @param id       要查看的成员的主键标识id
+     * @param modelMap 包含数据的模型
+     * @return 查看成员属性的页面
      */
     @RequestMapping("/personDetail/{id}")
     public String personDetail(@PathVariable("id") Integer id, ModelMap modelMap) {
@@ -174,10 +162,11 @@ public class EmployeeController {
 
     /**
      * 使用关键字进行查询
+     *
      * @param request  request请求，包含用户请求信息
-     * @param modelMap    包含属性的模型
-     * @return    通过关键字进行查询成员信息后的页面
-     * @throws UnsupportedEncodingException   抛出不知道编码的异常
+     * @param modelMap 包含属性的模型
+     * @return 通过关键字进行查询成员信息后的页面
+     * @throws UnsupportedEncodingException 抛出不知道编码的异常
      */
     @RequestMapping("/getByName")
     public String getByName(HttpServletRequest request, ModelMap modelMap) throws UnsupportedEncodingException {
@@ -198,9 +187,10 @@ public class EmployeeController {
 
     /**
      * 访问成员信息管理页面
+     *
      * @param request  request请求，包含用户请求信息
-     * @param modelMap   包含数据的模型
-     * @return   带分页数据后的成员信息管理页面
+     * @param modelMap 包含数据的模型
+     * @return 带分页数据后的成员信息管理页面
      */
     @RequestMapping("/manageEmployeeList")
     public String manageEmployee(HttpServletRequest request, ModelMap modelMap) {
@@ -222,9 +212,10 @@ public class EmployeeController {
 
     /**
      * 查看成员信息页面
-     * @param modelMap  向页面传送参数的集合
-     * @param request   页面发来的请求
-     * @return   进入管理成员信息页面
+     *
+     * @param modelMap 向页面传送参数的集合
+     * @param request  页面发来的请求
+     * @return 进入管理成员信息页面
      */
     @RequestMapping("/employeeDetail")
     public String employee_view(ModelMap modelMap, HttpServletRequest request) {
@@ -244,12 +235,6 @@ public class EmployeeController {
 
         return "pages/adminView/employeeList";      //进行成员信息列表页面
     }
-
-
-
-
-
-
 
 
 }
