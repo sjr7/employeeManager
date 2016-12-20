@@ -89,8 +89,8 @@
 | type_id | int(11)   |  希望更改为什么考勤类型  |
 
 ***外键关联：***
-|Indexes |Columns | Index_Type |Comment |
-| ------- |   ------ | ------ | ----- |
+|Indexes |Columns | Index_Type | Comment |
+| ------- |   ------ | ------ | ----- |    |
 |  PRIMARY|    app_id |                 Unique           | 关联CheckBack表中的app_id字段    |
 |  FK_9wx0gm9e04sxa4spsnnvshr2v  |  attend_id|          |  关联Attend表中的attend_id字段   |
 |  FK_ncy74ck30mee5rdkk2uhl76r4    |    type_id|          |   关联Attend_Type表中的id字段   |
