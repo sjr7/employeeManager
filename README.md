@@ -70,8 +70,8 @@
  - `spring-web-4.0.0.RELEASE.jar Web 应用开发时，用到Spring 框架时所需的核心类`
  - `spring-webmvc-4.0.0.RELEASE.jar 包含Spring MVC 框架相关的所有类`
  - `validation-api-1.1.0.Final.jar `
- - `xmlbeans-2.6.0.jar`
-###**项目数据库**
+ - `xmlbeans-2.6.0.jar`  
+  
 
 ###**项目数据库**
 
@@ -81,14 +81,15 @@
  - **application**表   (*申请修改考勤表*)
 
 | Field | Type  | Comment  |
-| ------| -------|---------|     |
+| ------| -------|---------|
 | app_id  | int(11)   | 主键标示id   |
 | app_reason | varchar(255) |  申请修改考勤类型的理由  |
 | app_result | tinyint(1)  | 该申请是否被处理  |
 | attend_id | int(11)  | 关联的考勤记录    |
-| type_id | int(11)   |  希望更改为什么考勤类型  |
+| type_id | int(11)   |  希望更改为什么考勤类型  |  
 
 ***外键关联：***
+
 |Indexes |Columns | Index_Type |Comment |
 | ------- |   ------ | ------ | ----- |
 |  PRIMARY|    app_id |                 Unique           | 关联CheckBack表中的app_id字段    |
@@ -116,8 +117,8 @@ CREATE TABLE `application` (
 
  - **attend**表     (*考勤记录表*)
 
-  | Field | Type  | Comment  |
-| ------| -------|---------|     |
+| Field | Type  | Comment  |
+| ------| -------|---------|
 | attend_id| int(11)| 主键标示id    |
 | duty_day| varchar(50)| 考勤日期|
 | is_come| tinyint(1)| 是否签到|
@@ -135,6 +136,7 @@ CREATE TABLE `application` (
 
 
 *数据库语句：*
+
 CREATE TABLE `attend` (
    `attend_id` int(11) NOT NULL AUTO_INCREMENT,
    `duty_day` varchar(50) NOT NULL,
@@ -152,13 +154,14 @@ CREATE TABLE `attend` (
 ----------
 
  - **attend_type表**    (*考勤类型表*)
- -
+
 | Field | Type  | Comment  |
 | ------| -------|  -----   |
  | type_id | int(11) |  主键标示id   |
  | type_name | varchar(50)    | 出勤类型名称  |
 
 外键关联：
+
 |Indexes |Columns | Index_Type|Comment |
  | ----| ----| ---| ----  |
 |PRIMARY|type_id|Unique| 主键标示id  |
@@ -176,6 +179,7 @@ CREATE TABLE `attend_type` (
 
 ----------
  - **check_back表**    (*申请修改考勤类型结果表*)
+ 
 |    Field|    Type|    Comment|
 |    --|    ---|    --|    --|
 |    check_id|    int(11)  |  主键标示id    |
@@ -185,6 +189,7 @@ CREATE TABLE `attend_type` (
     |    mgr_id|    int(11)|   哪个管理员审批的，对应管理员id    |
 
 ***外键关联：***
+
 |    Indexes    |    Columns    |    Index_Type    | Commment|
 |    ---    |    ---    | ---       | ---    |
 | PRIMARY |    check_id    |        |    主键标示id    |
@@ -212,6 +217,7 @@ CREATE TABLE `check_back` (
 
 
  - **employee表**  (成员信息表)
+ 
 |    Field|    Type|    Comment|
 |    --|    --|    --|
 |    emp_id|    int(11)|    主键标示id|
@@ -235,6 +241,7 @@ CREATE TABLE `check_back` (
 
 
 ***数据库语句：***
+
 CREATE TABLE `employee` (
    `emp_id` int(11) NOT NULL AUTO_INCREMENT,
    `emp_account` varchar(50) NOT NULL,
