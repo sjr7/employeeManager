@@ -181,12 +181,12 @@ CREATE TABLE `attend_type` (
  - **check_back表**    (*申请修改考勤类型结果表*)
  
 |    Field|    Type|    Comment|
-|    --|    ---|    --|    --|
+|    --|    ---|    --| 
 |    check_id|    int(11)  |  主键标示id    |
 |    check_reason|    varchar(255)| 审批的理由   |
 |    check_result|    tinyint(1)|  审批的结果  |
 |    app_id|    int(11)|   对应的申请表中的id    |
-    |    mgr_id|    int(11)|   哪个管理员审批的，对应管理员id    |
+|    mgr_id|    int(11)|   哪个管理员审批的，对应管理员id    |
 
 ***外键关联：***
 
