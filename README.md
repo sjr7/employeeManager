@@ -257,3 +257,9 @@ CREATE TABLE `employee` (
    KEY `FK_5f44y8jo1j00uhenw2naboii8` (`mgr_id`),
    CONSTRAINT `FK_5f44y8jo1j00uhenw2naboii8` FOREIGN KEY (`mgr_id`) REFERENCES `employee` (`emp_id`)
  ) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8
+ 
+ 
+ ## 注意事项
+ 
+ - 部署完项目后第一次请在数据库【employee】表中添加一条记录信息，填写账号密码，然后【emp_type】请赋值为2，在程序中进行判断，如果值为1登录则进入普通账号页面，如果值大于2则登录会进入管理员页面，请注意登录框的勾选
+ 
