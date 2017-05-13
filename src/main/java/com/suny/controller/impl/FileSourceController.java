@@ -33,8 +33,8 @@ public class FileSourceController implements ServletContextAware {
     @Autowired
     private FileSourceService fileSourceService;      //自动装配
 
-    @Override
     public void setServletContext(ServletContext servletContext) {
+
     }
 
     /**
@@ -107,6 +107,7 @@ public class FileSourceController implements ServletContextAware {
         fileSourceService.getExcelData(file);                           //把文件数据传送到处理Excel数据的service
         return "success";
     }
+
 
 }
 

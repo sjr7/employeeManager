@@ -1,14 +1,11 @@
 package com.suny.utils;
 
 import com.suny.service.impl.EmpManagerService;
-import org.junit.Test;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-
-import java.util.Date;
 
 /**
  * 自动调度任务执行类

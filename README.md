@@ -1,10 +1,10 @@
 # 简单的考勤管理系统，实现了考勤管理，管理员审批，成员信息管理功能
 
 ------
-##**项目环境**
+##  项目环境
  - 系统：`Windows7 X64位系统`
  - IDE：`Intellij IDEA 14.0`
-###**后端技术选型**
+###  后端技术选型
 
  - J D K 版 本：`JDK 1.8`
  - 数  据  库:`Mysql 5.7`
@@ -14,7 +14,7 @@
  - 持久层框架:`Hibernate4.0`
  - 数据库连接池:`C3P0`
 
-###**工具类**
+###  工具类
 
  - `Apache fileupload 文件上传组件`
  - `Apache commons-collections 封装好的各种集合类和集合工具类`
@@ -23,12 +23,13 @@
  - `dom4j 优秀的JavaXML API  主要用于解析XML文档`
  - `poi组件 主要用于读取以及写入Microsoft Office格式档案 `
  - `JSR 303 为实体验证定义了一个元数据模型和API`
-###**前端技术选型**
+###  前端技术选型
  - JS框架：`jQuery 1.8`
  - CSS框架：`Twitter Bootstrap`
 
-<hr>
-###**项目所需jar包列表**
+*** ** * ** ***
+
+###  项目所需jar包列表
 
  - `antlr-2.7.7.jar`
  - `classmate-1.0.0.jar`
@@ -71,9 +72,9 @@
  - `spring-webmvc-4.0.0.RELEASE.jar 包含Spring MVC 框架相关的所有类`
  - `validation-api-1.1.0.Final.jar `
  - `xmlbeans-2.6.0.jar`
-###**项目数据库**
 
-###**项目数据库**
+
+###  项目数据库
 
 总共分为5张数据库表
 ----------

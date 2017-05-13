@@ -11,28 +11,28 @@
         http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
     <!--设置自动扫描-->
-    <context:component-scan base-package="com.suny"></context:component-scan>
+    <context:component-scan base-package="com.suny"/>
 
     <!--开启注释-->
-    <mvc:annotation-driven></mvc:annotation-driven>
+    <mvc:annotation-driven/>
 
     <!--开启静态资源过滤-->
     <mvc:default-servlet-handler/>
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/**"></mvc:mapping>   <!-- 配置要拦截的链接-->
-            <mvc:exclude-mapping path="/css/**"></mvc:exclude-mapping>   <!--放行登陆页-->
-            <mvc:exclude-mapping path="/common/**"></mvc:exclude-mapping>   <!--放行登陆页-->
-            <mvc:exclude-mapping path="/script/**"></mvc:exclude-mapping>   <!--放行登陆页-->
-            <mvc:exclude-mapping path="/fonts/**"></mvc:exclude-mapping>   <!--放行登陆页-->
-            <mvc:exclude-mapping path="/images/**"></mvc:exclude-mapping>   <!--放行登陆页-->
-            <mvc:exclude-mapping path="/user/loginPage"></mvc:exclude-mapping>   <!--放行登陆页-->
-            <mvc:exclude-mapping path="/user/login"></mvc:exclude-mapping>   <!--放行登陆请求-->
+            <mvc:mapping path="/**"/>   <!-- 配置要拦截的链接-->
+            <mvc:exclude-mapping path="/css/**"/>   <!--放行登陆页-->
+            <mvc:exclude-mapping path="/common/**"/>   <!--放行登陆页-->
+            <mvc:exclude-mapping path="/script/**"/>   <!--放行登陆页-->
+            <mvc:exclude-mapping path="/fonts/**"/>   <!--放行登陆页-->
+            <mvc:exclude-mapping path="/images/**"/>   <!--放行登陆页-->
+            <mvc:exclude-mapping path="/user/loginPage"/>   <!--放行登陆页-->
+            <mvc:exclude-mapping path="/user/login"/>   <!--放行登陆请求-->
             <!--<mvc:exclude-mapping path="/user/adminWeb"></mvc:exclude-mapping>   &lt;!&ndash;放行管理员页面&ndash;&gt;-->
             <!--<mvc:exclude-mapping path="/user/userWeb"></mvc:exclude-mapping>   &lt;!&ndash;放行用户主页&ndash;&gt;-->
-            <mvc:exclude-mapping path="/user/checkLogin"></mvc:exclude-mapping>   <!--放行ajax验证用户名-->
-            <mvc:exclude-mapping path="/code/**"></mvc:exclude-mapping>   <!--放行ajax验证用户名-->
-            <bean class="com.suny.interceptor.UserInterceptor"></bean>
+            <mvc:exclude-mapping path="/user/checkLogin"/>   <!--放行ajax验证用户名-->
+            <mvc:exclude-mapping path="/code/**"/>   <!--放行ajax验证用户名-->
+            <bean class="com.suny.interceptor.UserInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 
@@ -54,7 +54,7 @@
           p:defaultEncoding="UTF-8"
           p:maxUploadSize="5400000"
           p:uploadTempDir="/upload"
-            >
+    >
     </bean>
 
 

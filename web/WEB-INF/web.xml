@@ -5,34 +5,25 @@
         http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          id="WebApp_ID" version="3.0">
 
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    <!--<error-page>-->
+    <!--<error-code>500</error-code>-->
+    <!--<location>/500.jsp</location>-->
+    <!--</error-page>-->
+
     <!--配置Spring监听-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>/WEB-INF/classes/config/Spring.xml</param-value>
+        <param-value>classpath:applicationContext*.xml</param-value>
     </context-param>
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
-    <!--配置SpringMVC-->
-
-    <!-- 配置SprinfMVC DispatcherServlet-->
-    <servlet>
-        <servlet-name>SpringMVC</servlet-name>
-        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-        <init-param>
-            <param-name>contextConfigLocation</param-name>
-            <param-value>/WEB-INF/classes/config/SpringMVC-servlet.xml</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>SpringMVC</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
 
     <!-- 配置编码过滤器 -->
 
@@ -54,6 +45,23 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!-- 配置SpringMVC DispatcherServlet-->
+    <servlet>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:applicationContext-SpringMvc.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
 
     <!-- 配置openSessionInViewFilter开关-->
 
@@ -67,15 +75,15 @@
     </filter-mapping>
 
 
-  <!--  <filter>
-        <filter-name>LoginCheckFilter</filter-name>
-        <filter-class>com.suny.filter.LoginCheckFilter</filter-class>
-    </filter>
+    <!--  <filter>
+          <filter-name>LoginCheckFilter</filter-name>
+          <filter-class>com.suny.filter.LoginCheckFilter</filter-class>
+      </filter>
 
-    <filter-mapping>
-        <filter-name>LoginCheckFilter</filter-name>
-        <url-pattern>*.jsp</url-pattern>
-    </filter-mapping>-->
+      <filter-mapping>
+          <filter-name>LoginCheckFilter</filter-name>
+          <url-pattern>*.jsp</url-pattern>
+      </filter-mapping>-->
 
 
 </web-app>
