@@ -1,4 +1,4 @@
-package com.suny.controller.impl;
+package com.suny.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,4 +1,4 @@
-package com.suny.controller.impl;
+package com.suny.controller;
 
 import com.suny.entity.Employee;
 import com.suny.service.impl.EmpManagerService;

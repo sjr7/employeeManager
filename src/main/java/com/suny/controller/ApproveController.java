@@ -1,4 +1,4 @@
-package com.suny.controller.impl;
+package com.suny.controller;
 
 import com.suny.service.impl.ApproveService;
 import com.suny.utils.Page;

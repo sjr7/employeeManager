@@ -1,4 +1,4 @@
-package com.suny.controller.impl;
+package com.suny.controller;
 
 import com.suny.service.impl.EmpManagerService;
 import org.springframework.beans.factory.annotation.Autowired;

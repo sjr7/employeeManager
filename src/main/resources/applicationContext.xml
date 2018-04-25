@@ -9,9 +9,9 @@
           http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-
-    <context:component-scan base-package="com.suny">
-        <context:exclude-filter type="regex" expression=".*Controller$"/>
+    <!--排除Controller下的bean-->
+    <context:component-scan base-package="com.suny.*">
+        <context:exclude-filter type="custom" expression="com.suny.controller"/>
     </context:component-scan>
 
     <!--开启这个配置，spring才能识别@Scheduled注解-->
@@ -36,7 +36,7 @@
         </tx:attributes>
     </tx:advice>
     <aop:config>
-        <!-- 对com.zxpm.biz包下的所有类的所有方法都应用事务规则 -->
+        <!-- 对com.suny.service包下的所有类的所有方法都应用事务规则 -->
         <aop:pointcut id="bizMethods"
                       expression="execution(* com.suny.service.*.*(..))"/>
         <!-- 将事务通知和切面组合 -->
