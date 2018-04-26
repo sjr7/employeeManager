@@ -6,15 +6,13 @@ import com.suny.dao.impl.EmployeeDao;
 import com.suny.entity.Attend;
 import com.suny.entity.AttendType;
 import com.suny.entity.Employee;
+import com.suny.service.EmployeeService;
 import com.suny.utils.Page;
 import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,7 +21,7 @@ import java.util.List;
  * 2016/11/11 13:44
  */
 @Service
-public class EmployeeService {
+public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeDao employeeDao;     //注入employeeDao
 
@@ -40,6 +38,7 @@ public class EmployeeService {
      * @param username 要签到的用户名
      * @return 是否可以签到
      */
+    @Override
     public int punch(String username) {
         Employee employee = employeeDao.findByEmpName(username);
         if (employee == null) {
@@ -74,6 +73,7 @@ public class EmployeeService {
      * @param oldPassword 老密码
      * @param newPassword 新密码
      */
+    @Override
     public void checkPassword(String username, String oldPassword, String newPassword) {
         Employee employee = employeeDao.findByEmpName(username);     //  通过当前的用户名去查询一个对应的对象
         if (employee == null) {
@@ -90,6 +90,7 @@ public class EmployeeService {
      * @param employee 要修改数据的employee对象
      * @param id       要修改数据的employee的主键标示id
      */
+    @Override
     public void modifyOperation(Employee employee, Integer id) {
         employeeDao.modifyOperation(employee, id);     //向employeeDao传递要修改的成员数据跟id
     }
@@ -99,9 +100,31 @@ public class EmployeeService {
      *
      * @param employee 要增加的成员信息对象
      */
+    @Override
     public void addOperation(Employee employee) {
         employeeDao.addOperation(employee);    //向employeeDao传递要增加的成员数据
     }
+
+    /**
+     * 获取所有的成员数据
+     *
+     * @return 所有成员的信息
+     */
+    @Override
+    public List getAllStudentDetails() {
+        return employeeDao.getAllStudentDetails();
+    }
+
+    /**
+     * 往数据库employee表中批量插入用户信息
+     *
+     * @param employeeList 传过来的一个employee对象集合
+     */
+    @Override
+    public void saveBatch(List<Employee> employeeList) {
+        employeeDao.saveBatch(employeeList);
+    }
+
 
     /**
      * 获取所有成员信息
@@ -110,6 +133,7 @@ public class EmployeeService {
      * @param pageCount   每一页显示的记录数
      * @return 分页后的数据
      */
+    @Override
     public Page getAll(int currentPage, int pageCount) {
         Page page = new Page();                                             //实例化page
         int totalCount = employeeDao.TotalCount();                            //查询总记录数
@@ -130,6 +154,7 @@ public class EmployeeService {
      * @param currentPage 前端传来的当前页页码
      * @return 通过用户名查询的记录，然后再进行分页后的数据
      */
+    @Override
     public Page getByName(String username, int pageCount, int currentPage) {
         Page<Employee> page = new Page<>();                             //实例化page工具类
         Query query = employeeDao.getByName(username);                  //得到一个查询的集合
@@ -149,6 +174,7 @@ public class EmployeeService {
      * @param id 要获取成员信息的主键标识id
      * @return 通过该id查询出来的employee对象
      */
+    @Override
     public Employee getById(Integer id) {
         return employeeDao.getById(id);
     }
@@ -158,6 +184,7 @@ public class EmployeeService {
      *
      * @param id 要删除的成员的主键标识id
      */
+    @Override
     public void deleteOperation(Integer id) {
         employeeDao.deleteOperation(id);      //给dao层传递删除的成员id
     }
@@ -169,6 +196,7 @@ public class EmployeeService {
      * @param pageCount 每一页显示的记录数
      * @return employee表中的最大可以分页数
      */
+    @Override
     public int getMaxPage(int pageCount) {
         int MaxPage;
         int totalCount = employeeDao.TotalCount();    //数据库总页数

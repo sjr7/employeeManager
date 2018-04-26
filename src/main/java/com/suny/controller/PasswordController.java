@@ -1,6 +1,6 @@
 package com.suny.controller;
 
-import com.suny.service.impl.EmployeeService;
+import com.suny.service.impl.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +22,7 @@ import java.io.PrintWriter;
 public class PasswordController {
 
     @Autowired
-    private EmployeeService employeeService;
+    private EmployeeServiceImpl employeeServiceImpl;
 
 
     /**
@@ -52,7 +52,7 @@ public class PasswordController {
         if (!newPassword.equals(repeatPassword)) {     //如果新密码不等于等于再次输入新密码
             printWriter.write("false");    //向页面发出响应
         } else {
-            employeeService.checkPassword(username, oldPassword, newPassword);   //发送修改密码请求
+            employeeServiceImpl.checkPassword(username, oldPassword, newPassword);   //发送修改密码请求
             printWriter.write("true");    //向页面发送响应
         }
     }
@@ -74,7 +74,7 @@ public class PasswordController {
             modelAndView.setView(new RedirectView("viewChangePassword"));      //重定向到修改密码页面
             modelAndView.addObject("error", "两次新密码不匹配");
         } else {
-            employeeService.checkPassword(username, oldPassword, newPassword);    //两次密码相等就发送请求修改密码请求
+            employeeServiceImpl.checkPassword(username, oldPassword, newPassword);    //两次密码相等就发送请求修改密码请求
             modelAndView.setView(new RedirectView("viewChangePassword"));
         }
         return modelAndView;         //重定向到ViewChangePassword请求

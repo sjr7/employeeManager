@@ -20,9 +20,12 @@ public class Application implements Serializable {
     //申请的理由
     @Column(name = "app_reason")
     private String reason;
+
     //是否处理
     @Column(name = "app_result")
     private boolean result;
+
+
     //关联的出勤记录
     @ManyToOne(targetEntity = Attend.class)
     @JoinColumn(name = "attend_id",nullable = false)
@@ -94,5 +97,17 @@ public class Application implements Serializable {
 
     public void setCheckBack(CheckBack checkBack) {
         this.checkBack = checkBack;
+    }
+
+    @Override
+    public String toString() {
+        return "Application{" +
+                "id=" + id +
+                ", reason='" + reason + '\'' +
+                ", result=" + result +
+                ", attend=" + attend +
+                ", attendType=" + attendType +
+                ", checkBack=" + checkBack +
+                '}';
     }
 }

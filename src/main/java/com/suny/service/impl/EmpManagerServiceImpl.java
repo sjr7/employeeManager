@@ -6,6 +6,7 @@ import com.suny.dao.impl.ManagerDao;
 import com.suny.entity.Attend;
 import com.suny.entity.AttendType;
 import com.suny.entity.Employee;
+import com.suny.service.EmpManagerService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ import java.util.List;
  * 2016/12/12 13:01
  */
 @Service
-public class EmpManagerService {
+public class EmpManagerServiceImpl implements EmpManagerService {
     @Autowired
     private ManagerDao managerDao;
     @Autowired
@@ -51,6 +52,7 @@ public class EmpManagerService {
      * @param account 要查询普通成员详细信息的账号
      * @return 返回普通成员对应账号的信息
      */
+    @Override
     public Employee getByEmployeeAccount(String account) {
         return employeeDao.getByEmployeeAccount(account);
     }
@@ -62,6 +64,7 @@ public class EmpManagerService {
      * @param account 要查询管理员的账号
      * @return 返回对应账号的信息
      */
+    @Override
     public Employee getByManagerAccount(String account) {
         return managerDao.getByManagerAccount(account);
     }
@@ -74,6 +77,7 @@ public class EmpManagerService {
      * @param password 登陆用户的密码
      * @return 返回进行逻辑判断后的验证状态
      */
+    @Override
     public int validLogin(String account, String password) {
         int status;    //返回状态
         // TODO 直接进管理员页面

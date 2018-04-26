@@ -1,6 +1,6 @@
 package com.suny.controller;
 
-import com.suny.service.impl.AttendService;
+import com.suny.service.impl.AttendServiceImpl;
 import com.suny.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ import java.util.List;
 public class AttendController {
 
     @Autowired
-    private AttendService attendService;
+    private AttendServiceImpl attendServiceImpl;
 
     private Page page;
 
@@ -45,7 +45,7 @@ public class AttendController {
         }
         request.setCharacterEncoding("UTF-8");     //设置编码
         String username = request.getParameter("name");     //获取请求参数
-        Page page = attendService.getByName(username, pageCount, Integer.valueOf(currentPage));   //返回分页后的page对象
+        Page page = attendServiceImpl.getByName(username, pageCount, Integer.valueOf(currentPage));   //返回分页后的page对象
         List attendRecordList = page.getPageDate();    //获取分页数据
         modelMap.addAttribute("attendRecordList", attendRecordList);    //添加查询的数据到modelMap中
         modelMap.addAttribute("value", username);     //添加name到modelMap中
@@ -66,10 +66,10 @@ public class AttendController {
         if (currentPage == null || currentPage.equals("0")) {         //如果当前页为空或者为0的话默认为第1页
             currentPage = "1";
         }
-        if (Integer.valueOf(currentPage) > attendService.getMaxPage(pageCount)) {   //如果当前页大于总页数则跳转到最大分页数
-            page = attendService.getAllRecord(attendService.getMaxPage(pageCount), pageCount);
+        if (Integer.valueOf(currentPage) > attendServiceImpl.getMaxPage(pageCount)) {   //如果当前页大于总页数则跳转到最大分页数
+            page = attendServiceImpl.getAllRecord(attendServiceImpl.getMaxPage(pageCount), pageCount);
         } else {
-            page = attendService.getAllRecord(Integer.valueOf(currentPage), pageCount);     //把当前页跟每页行数传到service里面进行分页查询
+            page = attendServiceImpl.getAllRecord(Integer.valueOf(currentPage), pageCount);     //把当前页跟每页行数传到service里面进行分页查询
         }
         modelMap.addAttribute("page", page);            //添加分页对象到modelMap里面
         List attendRecordList = page.getPageDate();        //获取page对象里面的考勤记录数据

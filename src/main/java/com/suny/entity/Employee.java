@@ -140,36 +140,17 @@ public class Employee implements Serializable{
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Employee employee = (Employee) o;
-
-        if (account != null ? !account.equals(employee.account) : employee.account != null) return false;
-        if (attends != null ? !attends.equals(employee.attends) : employee.attends != null) return false;
-        if (bedroom != null ? !bedroom.equals(employee.bedroom) : employee.bedroom != null) return false;
-        if (className != null ? !className.equals(employee.className) : employee.className != null) return false;
-        if (id != null ? !id.equals(employee.id) : employee.id != null) return false;
-        if (manager != null ? !manager.equals(employee.manager) : employee.manager != null) return false;
-        if (password != null ? !password.equals(employee.password) : employee.password != null) return false;
-        if (tel != null ? !tel.equals(employee.tel) : employee.tel != null) return false;
-        if (username != null ? !username.equals(employee.username) : employee.username != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (account != null ? account.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (username != null ? username.hashCode() : 0);
-        result = 31 * result + (className != null ? className.hashCode() : 0);
-        result = 31 * result + (tel != null ? tel.hashCode() : 0);
-        result = 31 * result + (bedroom != null ? bedroom.hashCode() : 0);
-        result = 31 * result + (manager != null ? manager.hashCode() : 0);
-        result = 31 * result + (attends != null ? attends.hashCode() : 0);
-        return result;
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", account='" + account + '\'' +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", className='" + className + '\'' +
+                ", tel='" + tel + '\'' +
+                ", bedroom='" + bedroom + '\'' +
+                ", manager=" + manager +
+                ", attends=" + attends +
+                '}';
     }
 }

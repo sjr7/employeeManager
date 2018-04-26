@@ -128,6 +128,17 @@ public class EmployeeDao<T>{
     }
 
     /**
+     * 获取所有的成员数据
+     *
+     * @return 所有成员的信息
+     */
+    public List getAllStudentDetails() {
+        String hql = "from Employee";              //创建hql语句
+        Query query = getSession().createQuery(hql);      //创建query查询
+        return query.list();
+    }
+
+    /**
      *      查询某个数据库表中总行数
      * @return   返回employee数据库表中的数据库总行数
      */

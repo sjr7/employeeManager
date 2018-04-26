@@ -1,7 +1,7 @@
 package com.suny.controller;
 
 import com.suny.entity.Employee;
-import com.suny.service.impl.EmployeeService;
+import com.suny.service.impl.EmployeeServiceImpl;
 import com.suny.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ import java.util.List;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeService employeeService;
+    private EmployeeServiceImpl employeeServiceImpl;
 
 
     private Page page;
@@ -52,7 +52,7 @@ public class EmployeeController {
     public void punch(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter printWriter = response.getWriter();
         String username = (String) request.getSession().getAttribute("username");   //获取要签到的用户名
-        int status = employeeService.punch(username);    //  得到一个状态码，进行判断各种结果
+        int status = employeeServiceImpl.punch(username);    //  得到一个状态码，进行判断各种结果
         switch (status) {
             case 0:
                 printWriter.write("null");
@@ -78,7 +78,7 @@ public class EmployeeController {
      */
     @RequestMapping("viewEmployeeDetail/{id}")
     public String viewEmployeeDetail(@PathVariable("id") Integer id, ModelMap modelMap) {
-        Employee employee = employeeService.getById(id);    //通过当前用户的id进行查询当前用户的信息
+        Employee employee = employeeServiceImpl.getById(id);    //通过当前用户的id进行查询当前用户的信息
         modelMap.addAttribute("employee", employee);   //保存成员要查看的个人信息
         return "/pages/userView/viewEmployee";
     }
@@ -93,7 +93,7 @@ public class EmployeeController {
      */
     @RequestMapping(value = "/modifyOperation/{id}", method = RequestMethod.POST)
     public String modifyOperation(@PathVariable("id") Integer id, Employee employee) {
-        employeeService.modifyOperation(employee, id);                       //把要修改的成员信息页面提交给service
+        employeeServiceImpl.modifyOperation(employee, id);                       //把要修改的成员信息页面提交给service
         return "redirect:/manageEmployeeAction/manageEmployee";      //重定向到成员管理页面
     }
 
@@ -106,7 +106,7 @@ public class EmployeeController {
      */
     @RequestMapping(value = "viewModifyOperation/{id}")
     public String viewModifyOperation(@PathVariable("id") Integer id, ModelMap modelMap) {
-        Employee employee = employeeService.getById(id);           //获取要修改的成员信息
+        Employee employee = employeeServiceImpl.getById(id);           //获取要修改的成员信息
         modelMap.addAttribute("employee", employee);             //把获取到的成员信息放到modelMap里面
         return "/pages/adminView/viewModifyOperation";               //进入修改成员信息页面
     }
@@ -119,7 +119,7 @@ public class EmployeeController {
      */
     @RequestMapping(value = "/deleteOperation/{id}", method = RequestMethod.GET)
     public String deleteOperation(@PathVariable("id") Integer id) {
-        employeeService.deleteOperation(id);            //传入要删除的成员的id
+        employeeServiceImpl.deleteOperation(id);            //传入要删除的成员的id
         return "redirect:/employee/manageEmployeeList";
     }
 
@@ -131,7 +131,7 @@ public class EmployeeController {
      */
     @RequestMapping("/addOperation")
     public String addOperation(Employee employee) {
-        employeeService.addOperation(employee);      //把employee对象传到数据操作层进行保存
+        employeeServiceImpl.addOperation(employee);      //把employee对象传到数据操作层进行保存
         return "redirect:/employee/manageEmployeeList";
     }
 
@@ -155,7 +155,7 @@ public class EmployeeController {
      */
     @RequestMapping("/personDetail/{id}")
     public String personDetail(@PathVariable("id") Integer id, ModelMap modelMap) {
-        Employee employee = employeeService.getById(id);     //传递id给service
+        Employee employee = employeeServiceImpl.getById(id);     //传递id给service
         modelMap.addAttribute("employee", employee);        //把查询到的值的数据传递给前端页面
         return "/pages/adminView/viewEmployee";
     }
@@ -177,7 +177,7 @@ public class EmployeeController {
         }
         request.setCharacterEncoding("UTF-8");     //设置编码
         String username = request.getParameter("name");     //获取请求参数
-        Page page = employeeService.getByName(username, pageCount, Integer.valueOf(currentPage));   //返回分页后的page对象
+        Page page = employeeServiceImpl.getByName(username, pageCount, Integer.valueOf(currentPage));   //返回分页后的page对象
         List employeeList = page.getPageDate();    //获取分页数据
         modelMap.addAttribute("employeeList", employeeList);    //添加查询的数据到modelMap中
         modelMap.addAttribute("value", username);     //添加name到modelMap中
@@ -199,10 +199,10 @@ public class EmployeeController {
         if (currentPage == null || currentPage.equals("0")) {      //设置默认页为1
             currentPage = "1";
         }
-        if (Integer.valueOf(currentPage) > employeeService.getMaxPage(pageCount)) {   //当前页超过最大页时设置当前页为最大页
-            page = employeeService.getAll(employeeService.getMaxPage(pageCount), pageCount);
+        if (Integer.valueOf(currentPage) > employeeServiceImpl.getMaxPage(pageCount)) {   //当前页超过最大页时设置当前页为最大页
+            page = employeeServiceImpl.getAll(employeeServiceImpl.getMaxPage(pageCount), pageCount);
         } else {
-            page = employeeService.getAll(Integer.valueOf(currentPage), pageCount);   //获取分页数据
+            page = employeeServiceImpl.getAll(Integer.valueOf(currentPage), pageCount);   //获取分页数据
         }
         modelMap.addAttribute("page", page);         //添加page对象到modelMap中
         List employeeList = page.getPageDate();       //获取page对象中的分页数据
@@ -224,10 +224,10 @@ public class EmployeeController {
         if (currentPage == null || currentPage.equals("0")) {         //如果当前页为空或者为0的话默认为第1页
             currentPage = "1";
         }
-        if (Integer.valueOf(currentPage) > employeeService.getMaxPage(pageCount)) {   //如果当前页大于总页数则跳转到最大分页数
-            page = employeeService.getAll(employeeService.getMaxPage(pageCount), pageCount);
+        if (Integer.valueOf(currentPage) > employeeServiceImpl.getMaxPage(pageCount)) {   //如果当前页大于总页数则跳转到最大分页数
+            page = employeeServiceImpl.getAll(employeeServiceImpl.getMaxPage(pageCount), pageCount);
         } else {
-            page = employeeService.getAll(Integer.valueOf(currentPage), pageCount);     //把当前页跟每页行数传到service里面进行分页查询
+            page = employeeServiceImpl.getAll(Integer.valueOf(currentPage), pageCount);     //把当前页跟每页行数传到service里面进行分页查询
         }
         modelMap.addAttribute("page", page);            //添加分页对象到modelMap里面
         List employeeList = page.getPageDate();

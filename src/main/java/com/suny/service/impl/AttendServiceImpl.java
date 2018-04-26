@@ -2,6 +2,7 @@ package com.suny.service.impl;
 
 import com.suny.dao.impl.AttendDao;
 import com.suny.entity.Employee;
+import com.suny.service.AttendService;
 import com.suny.utils.Page;
 import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.List;
  * 2016/12/13 15:26
  */
 @Service
-public class AttendService {
+public class AttendServiceImpl implements AttendService {
 
     @Autowired
     private AttendDao attendDao;
@@ -28,6 +29,7 @@ public class AttendService {
      * @param currentPage    前端页面传过来的当前页页码
      * @return   通过用户名查询到的分页后考勤数据
      */
+    @Override
     public Page<Employee> getByName(String username, int pageCount, int currentPage) {
         Page<Employee> page = new Page<>();                             //实例化page工具类
         Query query = attendDao.getByName(username);                  //得到一个查询的集合
@@ -46,6 +48,7 @@ public class AttendService {
      * @param pageCount    每页显示的记录数
      * @return    返回分页后的考勤记录
      */
+    @Override
     public Page getAllRecord(int currentPage, int pageCount) {
         Page page = new Page();                                             //实例化page
         int totalCount = attendDao.TotalCount();                            //查询总记录数
@@ -63,6 +66,7 @@ public class AttendService {
      * @param pageCount   每一页显示的行数
      * @return    考勤记录分页后的总页数
      */
+    @Override
     public int getMaxPage(int pageCount) {
         int MaxPage;             //最多可以分多少页
         int totalCount = attendDao.TotalCount();    //数据库总页数

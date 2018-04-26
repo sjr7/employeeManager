@@ -1,6 +1,6 @@
 package com.suny.utils;
 
-import com.suny.service.impl.EmpManagerService;
+import com.suny.service.impl.EmpManagerServiceImpl;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -12,10 +12,10 @@ import org.springframework.scheduling.annotation.Scheduled;
  * 孙建荣
  * 2016/12/18 18:56
  */
-public class AttendJob  implements Job{
+public class AttendJobUtils implements Job {
 
     @Autowired
-    private EmpManagerService empManagerService;
+    private EmpManagerServiceImpl empManagerServiceImpl;
 
     //判断作业是否执行的旗标
     private boolean isRunning =false;
@@ -32,7 +32,7 @@ public class AttendJob  implements Job{
           System.out.println("开始自动添加缺勤");
           isRunning=true;
           //调用业务逻辑方法
-          empManagerService.autoPunch();
+          empManagerServiceImpl.autoPunch();
           isRunning=false;
       }
 

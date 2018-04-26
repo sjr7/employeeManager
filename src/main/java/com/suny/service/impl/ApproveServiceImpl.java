@@ -5,6 +5,7 @@ import com.suny.entity.Application;
 import com.suny.entity.Attend;
 import com.suny.entity.CheckBack;
 import com.suny.entity.Manager;
+import com.suny.service.ApproveService;
 import com.suny.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import java.util.List;
  * 2016/12/13 17:28
  */
 @Service
-public class ApproveService {
+public class ApproveServiceImpl implements ApproveService {
 
     @Autowired
     private ApproveDao approveDao;
@@ -26,6 +27,7 @@ public class ApproveService {
      * @param pageCount     每页显示的记录个数
      * @return    申请列表中的记录数除以每页显示的个数的出来的最大页数
      */
+    @Override
     public int getMaxPage(int pageCount) {
         int MaxPage;
         int totalCount = approveDao.TotalApproveListCount();    //数据库总页数
@@ -45,7 +47,8 @@ public class ApproveService {
      * @param result        管理员处理的结果，true或者false
      * @throws Exception 要进行处理的异常
      */
-    public void check(Integer applicationId, String mgrName, boolean result) throws Exception {
+    @Override
+    public void handleApply(Integer applicationId, String mgrName, boolean result) throws Exception {
         Application application = (Application) approveDao.get(Application.class, applicationId);   //获取申请修改考勤结果的申请id
         CheckBack checkBack = new CheckBack();     //实例化一个审批结果类，新建一条处理结果
         checkBack.setApp(application);           //审批结果设置对应的申请修改考勤记录
@@ -78,7 +81,8 @@ public class ApproveService {
      * @param pageCount     每一个的显示的行数
      * @return      分页后的待审批列表数据
      */
-    public Page getApproveList(int currentPage, int pageCount) {
+    @Override
+    public Page getTodoApplyList(int currentPage, int pageCount) {
         Page page = new Page();                                             //实例化page
         int totalCount = approveDao.TotalApproveListCount();                            //查询总记录数
         page.setPageCount(pageCount);                                           //设置总页数

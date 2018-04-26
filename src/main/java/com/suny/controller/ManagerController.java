@@ -1,6 +1,6 @@
 package com.suny.controller;
 
-import com.suny.service.impl.EmpManagerService;
+import com.suny.service.impl.EmpManagerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ import java.io.PrintWriter;
 public class ManagerController {
 
     @Autowired
-    private EmpManagerService empManagerService;
+    private EmpManagerServiceImpl empManagerServiceImpl;
 
     /**
      * 响应ajax请求为所有普通成员添加缺勤记录
@@ -27,7 +27,7 @@ public class ManagerController {
     @RequestMapping("/punch")
     public void punch(HttpServletResponse response) throws IOException {
         PrintWriter printWriter=response.getWriter();
-        empManagerService.autoPunch();
+        empManagerServiceImpl.autoPunch();
         printWriter.write("true");
         printWriter.close();
     }

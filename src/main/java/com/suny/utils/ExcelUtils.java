@@ -1,13 +1,9 @@
-package com.suny.service.impl;
+package com.suny.utils;
 
-import com.suny.dao.impl.FileSourceDao;
 import com.suny.entity.Employee;
-import com.suny.utils.RandomID;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,15 +13,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 文件上传逻辑层实现类
- * 孙建荣
- * 2016/11/14 12:44
- */
-@Service
-public class FileSourceService {
-    @Autowired
-    private FileSourceDao fileSourceDao;
+public class ExcelUtils {
 
     /**
      * 下载学生数据模板
@@ -33,11 +21,11 @@ public class FileSourceService {
      * @param fileDir 要生成的模板的文件地址
      * @throws IOException 抛出IO流异常
      */
-    public void buildExcel(String fileDir) throws IOException {
+    public static void buildExcel(String fileDir, List employeeList) throws IOException {
         Workbook workbook = new XSSFWorkbook();                                    //创建一个表格
         Sheet sheet1 = workbook.createSheet("students");                          //创建一张工作表
         setTitles(sheet1);                                                       //设置标题行
-        setStudentDetails(sheet1);                                                    //填充数值
+        setStudentDetails(sheet1, employeeList);                                                    //填充数值
         FileOutputStream fileOutputStream = new FileOutputStream(fileDir);         //输出文件
         workbook.write(fileOutputStream);                                        //写入文件
         fileOutputStream.close();                                                //关闭
@@ -48,8 +36,7 @@ public class FileSourceService {
      *
      * @param sheet1 Excel数据表
      */
-    public void setStudentDetails(Sheet sheet1) {
-        List employeeList = fileSourceDao.getAllStudentDetails();  //查询数据
+    public static void setStudentDetails(Sheet sheet1, List employeeList) {
         Cell cell;
         for (int i = 0; i < employeeList.size(); i++) {
             //"序列号","姓名","班级","电话号码","寝室号","部门编号"
@@ -85,7 +72,7 @@ public class FileSourceService {
      *
      * @param sheet1 传入的要设置的Excel数据库表
      */
-    public void setTitles(Sheet sheet1) {
+    public static void setTitles(Sheet sheet1) {
 
         Row row1 = sheet1.createRow(0);    //创建一行
         //循环读取插入数据
@@ -102,7 +89,7 @@ public class FileSourceService {
      * @param file 要读取的数据的Excel数据表格
      * @throws IOException 抛出Io流异常
      */
-    public void getExcelData(File file) throws IOException {
+    public static List getExcelData(File file) throws IOException {
         //此为poi的核心对象，通过构造方法中的InputStream生成HSSWorkbook对象。
         XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(file));
         //这里得到第一张表格(sheet)，因为只有一张表在这里
@@ -116,17 +103,17 @@ public class FileSourceService {
             // Integer value1 = Integer.valueOf(row.getCell(0).getStringCellValue());
             //传入getCellValue方法中进行判断取出来的值是什么类型的
             //"序列号", "姓名", "班级", "电话号码", "寝室号", "部门编号"
-            String value1 = RandomID.generateShortUuid();
+            String value1 = RandomIDUtils.generateShortUuid();
             //密码数据库默认为123456，留空
             String value3 = getCellValue(row.getCell(3)); //姓名
             String value4 = getCellValue(row.getCell(4)); //班级
             String value5 = getCellValue(row.getCell(5)); //电话号码
             String value6 = getCellValue(row.getCell(6)); //寝室号
             //传入参数顺序为 ：序列号，账号，密码，姓名，班级，电话号码，寝室号，部门名字，管理员id，员工类型，传参数到employee对象
-            Employee employee = new Employee(value1,"123456",value3,value4,value5,value6);
+            Employee employee = new Employee(value1, "123456", value3, value4, value5, value6);
             employeeList.add(employee);                           //把遍历的每一行学生数据添加到一个student集合中
         }
-        fileSourceDao.saveBatch(employeeList);    //调用dao进行数据存入
+        return employeeList;
     }
 
 
@@ -137,7 +124,7 @@ public class FileSourceService {
      * @return 判断取出的类型，并进行相应的转换
      */
     @SuppressWarnings("deprecation")
-    public String getCellValue(Cell cell) {
+    public static String getCellValue(Cell cell) {
         switch (cell.getCellType()) {
             //取出来的值是String类型的时候
             case Cell.CELL_TYPE_STRING:
@@ -162,6 +149,4 @@ public class FileSourceService {
         }
         return null;
     }
-
-
 }

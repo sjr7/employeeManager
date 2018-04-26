@@ -1,6 +1,6 @@
 package com.suny.controller;
 
-import com.suny.service.impl.ApproveService;
+import com.suny.service.impl.ApproveServiceImpl;
 import com.suny.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ public class ApproveController {
 
 
     @Autowired
-    private ApproveService approveService;
+    private ApproveServiceImpl approveServiceImpl;
 
     private Page page;
 
@@ -47,9 +47,9 @@ public class ApproveController {
         Integer appid = Integer.valueOf(request.getParameter("appid"));    //获取要修改的考勤申请id
         //通过申请时的处理
         if (result.equals("pass")) {
-            approveService.check(appid, mgrName, true);
+            approveServiceImpl.handleApply(appid, mgrName, true);
         } else if (result.equals("deny")) {
-            approveService.check(appid, mgrName, false);
+            approveServiceImpl.handleApply(appid, mgrName, false);
         } else {
             throw new Exception("参数丢失");
         }
@@ -69,10 +69,10 @@ public class ApproveController {
         if (currentPage == null || currentPage.equals("0")) {         //如果当前页为空或者为0的话默认为第1页
             currentPage = "1";
         }
-        if (Integer.valueOf(currentPage) > approveService.getMaxPage(pageCount)) {   //如果当前页大于总页数则跳转到最大分页数
-            page = approveService.getApproveList(approveService.getMaxPage(pageCount), pageCount);
+        if (Integer.valueOf(currentPage) > approveServiceImpl.getMaxPage(pageCount)) {   //如果当前页大于总页数则跳转到最大分页数
+            page = approveServiceImpl.getTodoApplyList(approveServiceImpl.getMaxPage(pageCount), pageCount);
         } else {
-            page = approveService.getApproveList(Integer.valueOf(currentPage), pageCount);     //把当前页跟每页行数传到service里面进行分页查询
+            page = approveServiceImpl.getTodoApplyList(Integer.valueOf(currentPage), pageCount);     //把当前页跟每页行数传到service里面进行分页查询
         }
         modelMap.addAttribute("approveList", page.getPageDate());            //添加分页对象到modelMap里面
         return "/pages/adminView/approveList";

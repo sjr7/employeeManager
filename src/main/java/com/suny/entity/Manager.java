@@ -64,6 +64,15 @@ public class Manager extends Employee implements Serializable {
     public void setCheckBacks(Set<CheckBack> checkBacks) {
         this.checkBacks = checkBacks;
     }
+
+    @Override
+    public String toString() {
+        return "Manager{" +
+                "dept='" + dept + '\'' +
+                ", employees=" + employees +
+                ", checkBacks=" + checkBacks +
+                '}';
+    }
 }
 
 

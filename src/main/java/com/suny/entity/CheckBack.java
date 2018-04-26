@@ -85,6 +85,18 @@ public class CheckBack implements Serializable {
     public void setManager(Manager manager) {
         this.manager = manager;
     }
+
+
+    @Override
+    public String toString() {
+        return "CheckBack{" +
+                "id=" + id +
+                ", result=" + result +
+                ", reason='" + reason + '\'' +
+                ", app=" + app +
+                ", manager=" + manager +
+                '}';
+    }
 }
 
 

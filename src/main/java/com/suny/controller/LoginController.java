@@ -1,7 +1,7 @@
 package com.suny.controller;
 
 import com.suny.entity.Employee;
-import com.suny.service.impl.EmpManagerService;
+import com.suny.service.impl.EmpManagerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +25,7 @@ import java.io.PrintWriter;
 public class LoginController {
 
     @Autowired
-    private EmpManagerService empManagerService;
+    private EmpManagerServiceImpl empManagerServiceImpl;
 
 
     /**
@@ -89,7 +89,7 @@ public class LoginController {
     public String checkLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PrintWriter printWriter = response.getWriter();         //得到一个response输出对象
         String account = request.getParameter("account");        //获取表单ajax传来的用户账号
-        Employee employee = empManagerService.getByEmployeeAccount(account);    //得到通过账号查询的user对象
+        Employee employee = empManagerServiceImpl.getByEmployeeAccount(account);    //得到通过账号查询的user对象
         if (employee == null) {                 //当通过账号没有查询到user对象时
             printWriter.print("false");    //向页面发送字符串"false"
             return null;
@@ -117,17 +117,17 @@ public class LoginController {
         if (!verifyCode.equals(checkCode) || checkCode.equals("")) {
             modelAndView.setView(new RedirectView("loginPage"));             //重定向到查看用户登陆页面
         } else {
-            int status = empManagerService.validLogin(account, password);         //获取service判断用户名返回的状态值
+            int status = empManagerServiceImpl.validLogin(account, password);         //获取service判断用户名返回的状态值
             if (status == 0) {                                            //当查询到的数据为空时的操作
                 modelAndView.setView(new RedirectView("loginPage"));          //重定向到查看用户登陆页面
             } else if (status == 1) {                   //当返回值为1或者2的时候,也就是账号密码匹配成功
-                Employee employee = empManagerService.getByEmployeeAccount(account);    //查询id所对应的用户信息
+                Employee employee = empManagerServiceImpl.getByEmployeeAccount(account);    //查询id所对应的用户信息
                 request.getSession().setAttribute("id", employee.getId());           //保存标示id到session中
                 request.getSession().setAttribute("username", employee.getUsername());   //把用户名保存到session里面
                 request.getSession().setAttribute("role", "user");                       //保存用户角色到session中
                 modelAndView.setView(new RedirectView("userWeb"));   //重定向到普通会员的主页面
             } else {
-                Employee employee = empManagerService.getByManagerAccount(account);    //查询id所对应的用户信息
+                Employee employee = empManagerServiceImpl.getByManagerAccount(account);    //查询id所对应的用户信息
                 request.getSession().setAttribute("username", employee.getUsername());   //把用户名保存到session里面
                 request.getSession().setAttribute("role", "admin");                       //保存用户角色到session中
                 modelAndView.setView(new RedirectView("adminWeb"));   //重定向到管理员的主页面
