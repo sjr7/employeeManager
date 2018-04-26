@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,12 +32,12 @@ public class EmpManagerService {
         System.out.println("自动插入缺勤记录");
         List<Employee> employeeList=managerDao.findAll();    //获取数据库中所有的普通成员
         //获取当前的时间
-        String dutyDay =new java.sql.Date(System.currentTimeMillis()).toString();
+//        String dutyDay =new java.sql.Date(System.currentTimeMillis()).toString();
         for(Employee employee:employeeList){    //遍历list对象
             //获取旷工对应的考勤类型
             AttendType attendType= attendTypeDao.get(AttendType.class,1);
             Attend attend=new Attend();     //实例化一条考勤记录
-            attend.setDutyDay(dutyDay);     //设置自动添加考勤记录的时间
+            attend.setDutyDay(new Date());     //设置自动添加考勤记录的时间
             attend.setAttendType(attendType);    //设置考勤类型
             attend.setEmployee(employee);      //设置考勤记录对应着的成员
             attendTypeDao.save(attend);       //保存一条考勤记录
@@ -75,13 +76,15 @@ public class EmpManagerService {
      */
     public int validLogin(String account, String password) {
         int status;    //返回状态
-        if (managerDao.findByNameAndPass(account, password).size() >= 1) {
-            status = 2;   //部长
-        } else if (employeeDao.findByNameAndPass(account, password).size() >= 1) {
-            status = 1;    //普通会员
-        } else {
-            status = 0;   //登陆失败
-        }
-        return status;    //返回状态码
+        // TODO 直接进管理员页面
+//        if (managerDao.findByNameAndPass(account, password).size() >= 1) {
+//            status = 2;   //部长
+//        } else if (employeeDao.findByNameAndPass(account, password).size() >= 1) {
+//            status = 1;    //普通会员
+//        } else {
+//            status = 0;   //登陆失败
+//        }
+//        return status;    //返回状态码
+        return 2;
     }
 }

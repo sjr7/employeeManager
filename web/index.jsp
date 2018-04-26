@@ -112,18 +112,7 @@
                         </div>
                         <div class="hidden text-center" id="pwdMsg"><span class="glyphicon glyphicon-exclamation-sign"></span>用户名密码错误</div>
                     </div>
-                  <%--  <div class="form-group">
-                        <label for="checkCode" class="col-sm-4 control-label">验证码</label>
-                        <div class="row">
-                            <div class="col-sm-1">
 
-                                <input class="form-control" type="text" id="checkCode" maxlength="4" name="checkCode">
-                            </div>
-                            <div class="col-sm-1">
-                                <img border="0" style="cursor:pointer" alt="点击刷新验证码" src="${pageContext.request.contextPath}/code/verifyCode" id="verifyCode">
-                            </div>
-                        </div>
-                    </div>--%>
                     <div class="form-group-lg" id="code">
                         <label class="sr-only" for="checkCode">验证码</label>
                         <div class="input-group col-xs-15">

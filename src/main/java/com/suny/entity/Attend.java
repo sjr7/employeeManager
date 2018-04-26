@@ -19,11 +19,11 @@ public class Attend implements Serializable{
     private Integer id;    //标示对象
     //考勤日期
     @Column(name = "duty_day",nullable = false,length =50 )
-    private String dutyDay;
+    private Date dutyDay;
     //签到时间
     @Column(name = "punch_time")
     private java.util.Date punchTime;
-    //是否在规定时间签到
+    //是否在规定时间签到 0为没有 1为签到
     @Column(name = "is_come")
     private boolean isCome;
     //本次考勤的类型
@@ -39,7 +39,7 @@ public class Attend implements Serializable{
     public Attend() {
     }
 
-    public Attend(String dutyDay, Date punchTime, boolean isCome, AttendType attendType, Employee employee) {
+    public Attend(Date dutyDay, Date punchTime, boolean isCome, AttendType attendType, Employee employee) {
         this.dutyDay = dutyDay;
         this.punchTime = punchTime;
         this.isCome = isCome;
@@ -55,11 +55,11 @@ public class Attend implements Serializable{
         this.id = id;
     }
 
-    public String getDutyDay() {
+    public Date getDutyDay() {
         return dutyDay;
     }
 
-    public void setDutyDay(String dutyDay) {
+    public void setDutyDay(Date dutyDay) {
         this.dutyDay = dutyDay;
     }
 
