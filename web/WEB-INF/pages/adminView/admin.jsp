@@ -16,7 +16,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
         /* 后台管理框架的样式 */
-
         /* 下拉菜单和导航 */
         .navbar-collapse {
             padding-left: 5px;
@@ -111,7 +110,6 @@
             z-index: 10;
             background-color: #DFDFDF;
         }
-
     </style>
 </head>
 <body>
@@ -157,7 +155,7 @@
             <!-- 开始 -->
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown"
-                   href="${pageContext.request.contextPath}/employee/employeeDetail" target="mainFrame">
+                   href="#">
                     个人设置<span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
@@ -165,17 +163,17 @@
                         <a href="${pageContext.request.contextPath}/password/viewChangePassword"
                            target="mainFrame">修改密码</a>
                     </li>
+
                     <li>
-                        <a href="${pageContext.request.contextPath}/user/logout" target="mainFrame">退出系统</a>
-                    </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/user/logout" target="mainFrame">查看个人信息</a>
+                        <a href="#" target="mainFrame">查看个人信息</a>
                     </li>
                 </ul>
             </li>
+
+
             <!-- 结束 -->
             <li role="presentation">
-                <a href="${pageContext.request.contextPath}/user/logout" target="mainFrame">权限设置</a>
+                <a href="${pageContext.request.contextPath}/employee/employeeDetail" target="mainFrame">权限设置</a>
             </li>
 
 

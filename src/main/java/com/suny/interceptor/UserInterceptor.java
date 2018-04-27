@@ -26,7 +26,7 @@ public class UserInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         Object username=httpServletRequest.getSession().getAttribute("username");     //判断session中是否存在username
         if(username==null){                                                    //为空则重定向到登陆页面
-            httpServletResponse.sendRedirect(httpServletRequest.getContextPath()+"/user/loginPage");
+            httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/login");
             return false;     //返回false则不提交给下一处理
         }
         return true;    //判断成功的话就返回true，交由下一处理器进行处理

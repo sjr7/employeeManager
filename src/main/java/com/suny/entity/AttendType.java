@@ -20,15 +20,13 @@ public class AttendType implements Serializable{
     @Column(name = "type_name",nullable = false,length = 50)
     private String name;
 
-    public AttendType(Integer id,String name) {
-        this.name = name;
-        this.id=id;
-    }
-
     public AttendType() {
     }
 
-
+    public AttendType(Integer id, String name) {
+        this.name = name;
+        this.id=id;
+    }
 
     public Integer getId() {
         return id;

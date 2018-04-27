@@ -60,9 +60,8 @@ public class PasswordController {
 
     /**
      * 页面点击修改密码按钮修改密码controller请求
-     *
-     * @param request      request请求
-     * @param modelAndView 模型和视图对象
+     * @param request   request请求
+     * @param modelAndView   模型和视图对象
      * @return 返回处理结果
      */
     @RequestMapping("/changePassword")

@@ -26,11 +26,10 @@
             <mvc:exclude-mapping path="/script/**"/>   <!--放行登陆页-->
             <mvc:exclude-mapping path="/fonts/**"/>   <!--放行登陆页-->
             <mvc:exclude-mapping path="/images/**"/>   <!--放行登陆页-->
-            <mvc:exclude-mapping path="/user/loginPage"/>   <!--放行登陆页-->
-            <mvc:exclude-mapping path="/user/login"/>   <!--放行登陆请求-->
-            <!--<mvc:exclude-mapping path="/user/adminWeb"></mvc:exclude-mapping>   &lt;!&ndash;放行管理员页面&ndash;&gt;-->
-            <!--<mvc:exclude-mapping path="/user/userWeb"></mvc:exclude-mapping>   &lt;!&ndash;放行用户主页&ndash;&gt;-->
-            <mvc:exclude-mapping path="/user/checkLogin"/>   <!--放行ajax验证用户名-->
+            <mvc:exclude-mapping path="/login"/>   <!--放行登陆页-->
+            <mvc:exclude-mapping path="/index"/>   <!--放行登陆页-->
+            <mvc:exclude-mapping path="/login.action"/>   <!--放行登陆请求-->
+            <mvc:exclude-mapping path="/checkLogin.action"/>   <!--放行ajax验证用户名-->
             <mvc:exclude-mapping path="/code/**"/>   <!--放行ajax验证用户名-->
             <bean class="com.suny.interceptor.UserInterceptor"/>
         </mvc:interceptor>

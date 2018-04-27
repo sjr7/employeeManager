@@ -193,7 +193,7 @@ public class EmployeeDao<T>{
      * @param account   查询的账号
      * @return  返回一个对应的用户信息
      */
-    public Employee getByEmployeeAccount(String account) {
+    public Employee getByAccount(String account) {
         String hql = "from  Employee where account= ?0 ";         //创建hql查询语句
         Query query=getSession().createQuery(hql);       //创建一个查询
         query.setParameter("0", account);                    //给第一个参数Student_id赋值，值为表单传过来的用户名

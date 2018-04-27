@@ -35,7 +35,7 @@ public class FileSourceController implements ServletContextAware {
     //自动装配
 
     @Autowired
-    private EmployeeService employeeService;
+    private EmployeeService employeeServiceImpl;
 
     public void setServletContext(ServletContext servletContext) {
 
@@ -56,7 +56,7 @@ public class FileSourceController implements ServletContextAware {
          */
         String fileName = System.currentTimeMillis() + ".xlsx";                                      //系统生成的文件名
         String FileDir = request.getServletContext().getRealPath("/files/" + fileName);
-        List list = employeeService.getAllStudentDetails();//构建一个Excel文件
+        List list = employeeServiceImpl.getAllStudentDetails();//构建一个Excel文件
         ExcelUtils.buildExcel(FileDir, list);                                              //传入service
         String dataDirectory = request.getServletContext().getRealPath("/files");           //获取要下载的文件文件目录
         Path file = Paths.get(dataDirectory, fileName);                                     //获取一个文件
@@ -98,7 +98,7 @@ public class FileSourceController implements ServletContextAware {
      */
     @RequestMapping(value = "viewUploadExcel")
     public String viewUploadExcel() {
-        return "pages/adminView/uploadExcel";        //返回到上传Excel数据页面
+        return "/pages/adminView/UploadExcel";        //返回到上传Excel数据页面
     }
 
     /**
@@ -114,7 +114,7 @@ public class FileSourceController implements ServletContextAware {
         DiskFileItem diskFileItem = (DiskFileItem) Cfile.getFileItem();                //获取文件条目
         File file = diskFileItem.getStoreLocation();                                 //获取文件数据
         List excelData = ExcelUtils.getExcelData(file);//把文件数据传送到处理Excel数据的service
-        employeeService.saveBatch(excelData);
+        employeeServiceImpl.saveBatch(excelData);
         return "success";
     }
 
