@@ -1,6 +1,6 @@
 package com.suny.controller;
 
-import com.suny.service.impl.ApproveServiceImpl;
+import com.suny.service.ApproveService;
 import com.suny.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +21,7 @@ public class ApproveController {
 
 
     @Autowired
-    private ApproveServiceImpl approveServiceImpl;
+    private ApproveService approveServiceImpl;
 
     private Page page;
 

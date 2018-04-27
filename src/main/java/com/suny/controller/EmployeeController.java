@@ -1,7 +1,7 @@
 package com.suny.controller;
 
 import com.suny.entity.Employee;
-import com.suny.service.impl.EmployeeServiceImpl;
+import com.suny.service.EmployeeService;
 import com.suny.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ import java.util.List;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeServiceImpl employeeServiceImpl;
+    private EmployeeService employeeServiceImpl;
 
 
     private Page page;

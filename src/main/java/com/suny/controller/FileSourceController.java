@@ -98,7 +98,7 @@ public class FileSourceController implements ServletContextAware {
      */
     @RequestMapping(value = "viewUploadExcel")
     public String viewUploadExcel() {
-        return "/pages/adminView/UploadExcel";        //返回到上传Excel数据页面
+        return "pages/adminView/uploadExcel";        //返回到上传Excel数据页面
     }
 
     /**

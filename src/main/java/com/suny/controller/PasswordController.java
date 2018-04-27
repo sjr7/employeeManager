@@ -1,6 +1,6 @@
 package com.suny.controller;
 
-import com.suny.service.impl.EmployeeServiceImpl;
+import com.suny.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +22,7 @@ import java.io.PrintWriter;
 public class PasswordController {
 
     @Autowired
-    private EmployeeServiceImpl employeeServiceImpl;
+    private EmployeeService employeeServiceImpl;
 
 
     /**
@@ -60,9 +60,10 @@ public class PasswordController {
 
     /**
      * 页面点击修改密码按钮修改密码controller请求
-     * @param request   request请求
-     * @param modelAndView   模型和视图对象
-     * @return   返回处理结果
+     *
+     * @param request      request请求
+     * @param modelAndView 模型和视图对象
+     * @return 返回处理结果
      */
     @RequestMapping("/changePassword")
     public ModelAndView changePassword(HttpServletRequest request, ModelAndView modelAndView) {

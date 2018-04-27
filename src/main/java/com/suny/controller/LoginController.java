@@ -1,7 +1,7 @@
 package com.suny.controller;
 
 import com.suny.entity.Employee;
-import com.suny.service.impl.EmpManagerServiceImpl;
+import com.suny.service.EmpManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * 主要处理用户登陆登出请求
+ * 处理用户登陆登出请求
  * 孙建荣
  * 2016/12/12 13:03
  */
@@ -25,24 +25,12 @@ import java.io.PrintWriter;
 public class LoginController {
 
     @Autowired
-    private EmpManagerServiceImpl empManagerServiceImpl;
-
-
-    /**
-     * 普通成员的退出
-     * 因为管理员页面的退出是要整个窗口显示登陆页面，而用户页面只需要直接打开登陆页面就可以
-     * @param request  request请求
-     * @return   移除session中用户名后返回到登陆界面
-     */
-    @RequestMapping("/userLogout")
-   public String userLogout(HttpServletRequest request){
-       request.getSession().removeAttribute("username");   //移除session用户名
-       return "redirect:/loginPage";    //返回登陆
-   }
+    private EmpManagerService empManagerServiceImpl;
 
     /**
-     *    处理用户的注销登陆请求，在注销的同时讲保存在session中的用户名进行注销处理
-     * @param request  包含用户请求的相关信息
+     * 处理用户的注销登陆请求，在注销的同时讲保存在session中的用户名进行注销处理
+     *
+     * @param request 包含用户请求的相关信息
      */
     @RequestMapping("logout")
     public void logout(HttpServletRequest request) {
@@ -109,8 +97,8 @@ public class LoginController {
      * @return 对应不同的用户角色进入不同的界面
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public ModelAndView login(@RequestParam(value = "account", required = true, defaultValue = "0") String account,
-                              @RequestParam(value = "password", required = true, defaultValue = "0") String password,
+    public ModelAndView login(@RequestParam(value = "account") String account,
+                              @RequestParam(value = "password") String password,
                               HttpServletRequest request, ModelAndView modelAndView) {
         String verifyCode = (String) request.getSession().getAttribute("code");          //服务器向登陆页面发送的验证码
         String checkCode = request.getParameter("checkCode");             //用户填写的验证码

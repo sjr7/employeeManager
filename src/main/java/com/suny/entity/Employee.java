@@ -149,7 +149,6 @@ public class Employee implements Serializable{
                 ", className='" + className + '\'' +
                 ", tel='" + tel + '\'' +
                 ", bedroom='" + bedroom + '\'' +
-                ", manager=" + manager +
                 ", attends=" + attends +
                 '}';
     }

@@ -1,6 +1,6 @@
 package com.suny.controller;
 
-import com.suny.service.impl.AttendServiceImpl;
+import com.suny.service.AttendService;
 import com.suny.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,11 +21,9 @@ import java.util.List;
 public class AttendController {
 
     @Autowired
-    private AttendServiceImpl attendServiceImpl;
+    private AttendService attendServiceImpl;
 
     private Page page;
-
-
 
 
     /**

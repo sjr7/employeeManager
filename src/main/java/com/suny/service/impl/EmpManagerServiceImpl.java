@@ -7,7 +7,6 @@ import com.suny.entity.Attend;
 import com.suny.entity.AttendType;
 import com.suny.entity.Employee;
 import com.suny.service.EmpManagerService;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +27,7 @@ public class EmpManagerServiceImpl implements EmpManagerService {
     @Autowired
     private AttendTypeDao<AttendType> attendTypeDao;
 
-    @Test
+    @Override
     public void autoPunch(){
         System.out.println("自动插入缺勤记录");
         List<Employee> employeeList=managerDao.findAll();    //获取数据库中所有的普通成员

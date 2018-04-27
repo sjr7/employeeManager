@@ -25,6 +25,11 @@ public class AttendType implements Serializable{
         this.id=id;
     }
 
+    public AttendType() {
+    }
+
+
+
     public Integer getId() {
         return id;
     }

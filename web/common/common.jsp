@@ -11,12 +11,4 @@
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path;
 %>
-<c:set var="ctx" value="${pageContext.request.contextPath}"></c:set>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">

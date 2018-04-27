@@ -69,7 +69,6 @@ public class Manager extends Employee implements Serializable {
     public String toString() {
         return "Manager{" +
                 "dept='" + dept + '\'' +
-                ", employees=" + employees +
                 ", checkBacks=" + checkBacks +
                 '}';
     }
