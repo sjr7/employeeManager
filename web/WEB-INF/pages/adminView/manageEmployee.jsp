@@ -47,20 +47,20 @@
 
             $("#selectNo").val("${page.currentPage}");   //跳转不同页后下拉框为当前页页码
 
-            $(".delete").click(function () {
+            /* $(".delete").click(function () {
 
-                var flag = confirm("你确定要删除这个学生的信息吗");
-                if (!flag) {
-                    return false;
-                }
-            });
-            $("#submit").click(function(){
-                var file=$("#ExcelFile").val();
-                if(file == ""){
+                 var flag = confirm("你确定要删除这个学生的信息吗");
+                 if (!flag) {
+                     return false;
+                 }
+             });*/
+            $("#submit").click(function () {
+                var file = $("#ExcelFile").val();
+                if (file == "") {
                     alert("请选择要上传的文件");
                     return false;
                 }
-                if(file.indexOf('.xlsx') == -1){
+                if (file.indexOf('.xlsx') == -1) {
                     alert("你选择的格式不正确");
                     return false;
                 }
@@ -89,23 +89,25 @@
         </thead>
 
         <c:if test="${empty employeeList}">
-            <tr><td colspan="4">成员数据为空</td></tr>
+            <tr>
+                <td colspan="4">成员数据为空</td>
+            </tr>
 
         </c:if>
         <c:if test="${!empty employeeList}">
             <tbody>
-            <c:forEach items="${employeeList}" var="a">
+            <c:forEach items="${employeeList}" var="employee">
 
                 <tr>
-                    <td>${a.id}</td>
-                    <td>${a.username}</td>
-                    <td>${a.className}</td>
-                    <td>${a.manager.dept}</td>
-                    <td><a href="${pageContext.request.contextPath}/employee/viewModifyOperation/${a.id}" class="btn btn-info" >修改</a>
+                    <td>${employee.id}</td>
+                    <td>${employee.userName}</td>
+                    <td>${employee.className}</td>
+                    <td>${employee.manager.dept}</td>
+                    <td><a class="btn btn-info" id="updateEmployee" onclick="editEmployee(${employee.id})">修改</a>
                     </td>
-                    <td><a href="${pageContext.request.contextPath}/employee/deleteOperation/${a.id}"
-                           class="btn btn-danger delete">删除</a></td>
-                    <%--<td><a href="${pageContext.request.contextPath}/ViewEmployee/${s.num}" class="btn btn-success">查看</a>--%>
+                        <%--<td><a onclick="delConfirm()" href="${pageContext.request.contextPath}/employee/deleteOperation/${employee.id}"--%>
+                    <td><a onclick="delConfirm()" class="btn btn-danger delete">删除</a></td>
+                        <%--<td><a href="${pageContext.request.contextPath}/ViewEmployee/${s.num}" class="btn btn-success">查看</a>--%>
                     </td>
 
 
@@ -144,11 +146,11 @@
     当前
     <label for="selectNo"></label><select class="selectNo btn btn-default dropdown-toggle" id="selectNo">
 
-        <c:forEach var="i" begin="1" end="${page.totalPage}" step="1">
-            <option value="${i}">${i}</option>
-        </c:forEach>
+    <c:forEach var="i" begin="1" end="${page.totalPage}" step="1">
+        <option value="${i}">${i}</option>
+    </c:forEach>
 
-    </select>
+</select>
     页/${page.getTotalPage()}
 
     <a href="${pageContext.request.contextPath}/employee/viewAddOperation" class="btn btn-warning btn-lg">添加学生数据</a>
@@ -158,6 +160,111 @@
         <input type="submit" value="上传学生资料" id="submit">
 
     </form>
+
+    <!-- 信息删除确认 -->
+    <div class="modal fade" id="delModel">
+        <div class="modal-dialog">
+            <div class="modal-content message_align">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">提示信息</h4>
+                </div>
+                <div class="modal-body">
+                    <p>您确认要删除吗？</p>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="url"/>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <a class="btn btn-success" data-dismiss="modal">确定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%--修改资料拟态框--%>
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">修改数据</button>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true" style="height: 500px">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">修改数据</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label style="display: none" for="id">id</label>
+                        <input type="hidden" class="form-control " id="id" name="id" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="account">登陆账号</label>
+                        <input type="text" class="form-control " id="account" name="account" required/><br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userName">姓名</label>
+                        <input type="text" class="form-control " id="userName" name="userName" required/><br>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="className">班级</label>
+                        <input type="text" class="form-control " id="className" name="className" required/><br>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="tel">电话</label>
+                        <input type="text" class="form-control " id="tel" name="tel" required/><br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bedroom">寝室号</label>
+                        <input type="text" class="form-control " id="bedroom" name="bedroom" required/><br>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">提交更改</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    function delConfirm(employeeId) {
+        $("#delModel").modal({
+            show: true,
+            backdrop: false
+        });
+
+    }
+
+    function editEmployee(employeeId) {
+        $.ajax({
+            url: "${pageContext.request.contextPath}/employee/" + employeeId, success: function (employee) {
+                console.log(employee);
+                $("#id").val(employee.id);
+                $("#account").val(employee.account);
+                $("#userName").val(employee.userName);
+                $("#className").val(employee.className);
+                $("#tel").val(employee.tel);
+                $("#bedroom").val(employee.bedroom);
+                $('#myModal').modal({
+                    show: true,
+                    backdrop: false
+                });
+            }
+        });
+
+    }
+
+
+</script>
 </body>
 </html>

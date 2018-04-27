@@ -1,5 +1,7 @@
 package com.suny.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -39,6 +41,7 @@ public class Attend implements Serializable{
     //本次考勤的员工
     @ManyToOne(targetEntity = Employee.class)
     @JoinColumn(name = "emp_id")
+    @JsonIgnore
     private Employee employee;
 
     public Attend() {
@@ -108,7 +111,6 @@ public class Attend implements Serializable{
                 ", punchTime=" + punchTime +
                 ", isCome=" + isCome +
                 ", attendType=" + attendType +
-                ", employee=" + employee +
                 '}';
     }
 }

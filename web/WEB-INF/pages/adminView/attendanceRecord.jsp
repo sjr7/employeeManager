@@ -96,14 +96,14 @@
         </c:if>
         <c:if test="${!empty attendRecordList}">
             <tbody>
-            <c:forEach items="${attendRecordList}" var="a">
+            <c:forEach items="${attendRecordList}" var="employee">
 
                 <tr>
-                    <td>${a.id}</td>
-                    <td>${a.dutyDay}</td>
-                    <td>${a.punchTime}</td>
-                    <td>${a.attendType.name}</td>
-                    <td>${a.employee.username}</td>
+                    <td>${employee.id}</td>
+                    <td>${employee.dutyDay}</td>
+                    <td>${employee.punchTime}</td>
+                    <td>${employee.attendType.name}</td>
+                    <td>${employee.employee.userName}</td>
 
 
                 </tr>

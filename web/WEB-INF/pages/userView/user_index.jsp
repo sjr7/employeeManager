@@ -47,7 +47,7 @@
         }
         $(function () {
             $("#punch").click(function () {
-                var username = "${username}";
+                var userName = "${userName}";
                 $.ajax({
                             type: "POST",
                             url: "${pageContext.request.contextPath}/employee/punch",
@@ -75,7 +75,7 @@
 <body>
 现在是<h3><span id="time"></span></h3>
 <hr>
-<h3>${username}</h3>，欢迎您 <a href="${pageContext.request.contextPath}/user/userLogout" id="exit">安全退出</a>
+<h3>${userName}</h3>，欢迎您 <a href="${pageContext.request.contextPath}/user/userLogout" id="exit">安全退出</a>
 <hr>
 <a href="${pageContext.request.contextPath}/employee/viewEmployeeDetail/${id}">个人中心</a>
 <a href="#" id="punch">签到</a>

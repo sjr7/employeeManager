@@ -50,8 +50,8 @@
 
 
             $(".exit").click(function () {
-                var username = $(".username").text();
-                var flag = confirm(username + "你确定要退出吗？");
+                var userName = $(".userName").text();
+                var flag = confirm(userName + "你确定要退出吗？");
                 if (!flag) {
                     return false;
                 }
@@ -86,13 +86,16 @@
 <hr>
 
 <div class="container">
-    输入姓名查询 &nbsp;&nbsp;&nbsp;
-    <form action="${pageContext.request.contextPath}/employee/getByName" method="post" id="selectByName">
-        <label>
-            <input type="text" name="name" value="${value}">
-        </label>
-        <input type="submit" value="查询" id="btn">
+    <form action="${pageContext.request.contextPath}/employee/getByName" method="post" id="selectByName"
+          class="form-inline">
+        <div class="form-group ">
+            <label for="inputName">输入姓名查询</label>
+            <input type="text" class="form-control " id="inputName" name="name" placeholder="姓名"
+                   value="${value}">
+        </div>
+        <button type="submit" class="btn btn-default ">查询</button>
     </form>
+
     <table border="2" class="table table-striped table-hover">
 
         <thead>
@@ -102,34 +105,26 @@
             <td>班级</td>
             <td>电话号码</td>
             <td>寝室</td>
-            <%--<td>家长电话</td>--%>
             <td>部长</td>
-            <td colspan="3">操作</td>
         </tr>
         </thead>
 
         <c:if test="${empty employeeList}">
-            <tr><td colspan="8">成员数据为空</td></tr>
+            <tr>
+                <td colspan="8">成员数据为空</td>
+            </tr>
         </c:if>
         <c:if test="${!empty employeeList}">
             <tbody>
-            <c:forEach items="${employeeList}" var="a">
+            <c:forEach items="${employeeList}" var="employee">
 
                 <tr>
-                    <td>${a.id}</td>
-                    <td>${a.username}</td>
-                    <td>${a.className}</td>
-                    <td>${a.tel}</td>
-                    <td>${a.bedroom}</td>
-                    <td>${a.manager.username}</td>
-                        <%--<td>${s.parents_tel}</td>--%>
-                        <%--             <td><a href="${pageContext.request.contextPath}/viewChange/${s.num}" class="btn btn-info">修改</a>
-                                     </td>
-                                     <td><a href="${pageContext.request.contextPath}/Delete/${s.num}"
-                                            class="btn btn-danger delete">删除</a></td>--%>
-                    <td><a href="${pageContext.request.contextPath}/employee/personDetail/${a.id}"
-                           class="btn btn-success">查看详细信息</a>
-                    </td>
+                    <td>${employee.id}</td>
+                    <td>${employee.userName}</td>
+                    <td>${employee.className}</td>
+                    <td>${employee.tel}</td>
+                    <td>${employee.bedroom}</td>
+                    <td>${employee.manager.userName}</td>
 
 
                 </tr>
@@ -143,23 +138,23 @@
     </table>
     <c:if test="${! empty page}">
         <a href="${pageContext.request.contextPath}/employee/employeeDetail?currentPage=${page.getTopPageNo()}"
-           class="btn btn-primary btn-lg">首页</a>
+           class="btn btn-primary ">首页</a>
         <a href="${pageContext.request.contextPath}/employee/employeeDetail?currentPage=${page.getPrevious()}"
-           class="btn btn-success btn-lg">上一页</a><a
+           class="btn btn-success ">上一页</a><a
             href="${pageContext.request.contextPath}/employee/employeeDetail?currentPage=${page.getNext()}"
-            class="btn btn-info btn-lg">下一页</a>
+            class="btn btn-info ">下一页</a>
         <a href="${pageContext.request.contextPath}/employee/employeeDetail?currentPage=${page.getBottom()}"
-           class="btn btn-warning btn-lg">末页</a>
+           class="btn btn-warning">末页</a>
     </c:if>
     <c:if test="${ empty page}">
         <a href="${pageContext.request.contextPath}/employee/employeeDetail?currentPage=1"
-           class="btn btn-primary btn-lg">首页</a>
+           class="btn btn-primary ">首页</a>
         <a href="#"
-           class="btn btn-success btn-lg">上一页</a>
+           class="btn btn-success ">上一页</a>
         <a href="#"
-           class="btn btn-info btn-lg">下一页</a>
+           class="btn btn-info ">下一页</a>
         <a href="#"
-           class="btn btn-warning btn-lg">末页</a>
+           class="btn btn-warning ">末页</a>
     </c:if>
 
     总记录数${page.totalCount}
@@ -176,7 +171,7 @@
     页/${page.getTotalPage()}
 
 
-    <a href="${pageContext.request.contextPath}/file/databaseDownload" class="btn btn-success btn-lg">下载当前数据到Excel表格</a>
+    <a href="${pageContext.request.contextPath}/file/databaseDownload" class="btn btn-success ">下载为Excel数据</a>
 </div>
 </body>
 </html>

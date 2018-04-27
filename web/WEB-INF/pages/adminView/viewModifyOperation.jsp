@@ -85,7 +85,7 @@
 
 
         <label>姓名</label>
-        <input type="text" class="form-control " id="userName" name="userName" value="${employee.username}"
+        <input type="text" class="form-control " id="userName" name="userName" value="${employee.userName}"
                required/><br>
 
 

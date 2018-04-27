@@ -124,7 +124,7 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li role="presentation">
-                    <a href="#">当前用户：<span class="badge">${username}</span></a>
+                    <a href="#">当前用户：<span class="badge">${userName}</span></a>
                 </li>
                 <li>
                     <a href="${pageContext.request.contextPath}/user/logout">
@@ -184,9 +184,11 @@
     <div class="splitter"></div>
     <!-- 正文内容部分 -->
     <div class="pageContent">
-        <iframe src="${pageContext.request.contextPath}/common/welcome.jsp" id="mainFrame" name="mainFrame"
+        <iframe src="${pageContext.request.contextPath}/employee/employeeDetail" id="mainFrame" name="mainFrame"
                 frameborder="0" width="100%" height="100%" frameBorder="0">
-        </iframe>
+            <%-- <iframe src="${pageContext.request.contextPath}/common/welcome.jsp" id="mainFrame" name="mainFrame"
+                     frameborder="0" width="100%" height="100%" frameBorder="0">
+             </iframe>--%>
     </div>
 
 </div>

@@ -46,7 +46,7 @@ public class EmployeeDao<T>{
         Employee employee1 = (Employee) getSession().get(Employee.class, id);    //获取要更改的对象类
         employee1.setBedroom(employee.getBedroom());                   //设置寝室号
         employee1.setClassName(employee.getClassName());           //设置班级名字
-        employee1.setUsername(employee.getUsername());         //设置姓名
+        employee1.setUserName(employee.getUserName());         //设置姓名
         employee1.setTel(employee.getTel());           //设置电话号码
         getSession().update(employee1);           //更新数据
         getSession().flush();          //刷新session

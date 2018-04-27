@@ -110,7 +110,7 @@ public class LoginController {
                 modelAndView.setView(new RedirectView("login"));          //重定向到查看用户登陆页面
             } else {
                 Employee employee = empManagerServiceImpl.getByManagerAccount(account);    //查询id所对应的用户信息
-                request.getSession().setAttribute("username", employee.getUsername());   //把用户名保存到session里面
+                request.getSession().setAttribute("username", employee.getUserName());   //把用户名保存到session里面
                 request.getSession().setAttribute("role", "admin");                       //保存用户角色到session中
                 modelAndView.setView(new RedirectView("adminWeb"));   //重定向到管理员的主页面
             }

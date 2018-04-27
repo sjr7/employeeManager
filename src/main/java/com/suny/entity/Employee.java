@@ -1,5 +1,7 @@
 package com.suny.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -29,7 +31,7 @@ public class Employee implements Serializable{
     private String password;
 
     @Column(name = "emp_name")
-    private String username;    //姓名
+    private String userName;    //姓名
 
     @Column(name = "emp_className")
     private String className;    //班级
@@ -45,6 +47,7 @@ public class Employee implements Serializable{
     //成员对应的部长
     @ManyToOne(targetEntity = Manager.class)
     @JoinColumn(name="mgr_id")
+    @JsonIgnoreProperties
     private  Manager manager;
     //成员对应的签到记录
     @OneToMany(targetEntity = Attend.class,mappedBy = "employee")
@@ -53,10 +56,10 @@ public class Employee implements Serializable{
     public Employee() {
     }
 
-    public Employee(String account, String password, String username, String className, String tel, String bedroom) {
+    public Employee(String account, String password, String userName, String className, String tel, String bedroom) {
         this.account = account;
         this.password = password;
-        this.username = username;
+        this.userName = userName;
         this.className = className;
         this.tel = tel;
         this.bedroom = bedroom;
@@ -88,12 +91,12 @@ public class Employee implements Serializable{
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
 
@@ -144,7 +147,7 @@ public class Employee implements Serializable{
         return "Employee{" +
                 "id=" + id +
                 ", password='" + password + '\'' +
-                ", username='" + username + '\'' +
+                ", userName='" + userName + '\'' +
                 ", className='" + className + '\'' +
                 ", tel='" + tel + '\'' +
                 ", bedroom='" + bedroom + '\'' +

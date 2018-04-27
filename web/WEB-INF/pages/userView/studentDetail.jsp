@@ -36,7 +36,7 @@
 
     <tr>
         <th> 姓名</th>
-        <td> ${employee.username}</td>
+        <td> ${employee.userName}</td>
     </tr>
     <tr>
         <th>班级</th>

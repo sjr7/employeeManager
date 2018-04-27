@@ -68,26 +68,26 @@
         </c:if>
         <c:if test="${!empty approveList}">
             <tbody>
-            <c:forEach items="${approveList}" var="a">
+            <c:forEach items="${approveList}" var="employee">
 
                 <tr>
-                    <td>${a.id}</td>
-                    <td>${a.attend.dutyDay}</td>
-                    <td>${a.attend.punchTime}</td>
-                    <td>${a.attend.attendType.name}</td>
-                    <td>${a.attend.employee.username}</td>
-                    <td>${a.attendType.name}</td>
-                    <td>${a.reason}</td>
+                    <td>${employee.id}</td>
+                    <td>${employee.attend.dutyDay}</td>
+                    <td>${employee.attend.punchTime}</td>
+                    <td>${employee.attend.attendType.name}</td>
+                    <td>${employee.attend.employee.userName}</td>
+                    <td>${employee.attendType.name}</td>
+                    <td>${employee.reason}</td>
                     <td>
                         <a type="button"
-                                href="${pageContext.request.contextPath}/approve/checkApprove?result=pass&username=${a.attend.employee.manager.username}&appid=${a.id}"
-                                id="pass" class=" btn btn-success btn-lg">同意
+                           href="${pageContext.request.contextPath}/approve/checkApprove?result=pass&userName=${employee.attend.employee.manager.userName}&appid=${employee.id}"
+                           id="pass" class=" btn btn-success btn-lg">同意
                         </a>
                     </td>
                     <td>
                         <a type="button"
-                                href="${pageContext.request.contextPath}/approve/checkApprove?result=deny&username=${a.attend.employee.manager.username}&appid=${a.id}"
-                                id="deny" class="btn btn-warning btn-lg">拒绝
+                           href="${pageContext.request.contextPath}/approve/checkApprove?result=deny&userName=${employee.attend.employee.manager.userName}&appid=${employee.id}"
+                           id="deny" class="btn btn-warning btn-lg">拒绝
                         </a>
                     </td>
 

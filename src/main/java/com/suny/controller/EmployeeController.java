@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -149,15 +150,13 @@ public class EmployeeController {
     /**
      * 管理员查看某个成员详情页面
      *
-     * @param id       要查看的成员的主键标识id
-     * @param modelMap 包含数据的模型
+     * @param id 要查看的成员的主键标识id
      * @return 查看成员属性的页面
      */
-    @RequestMapping("/personDetail/{id}")
-    public String personDetail(@PathVariable("id") Integer id, ModelMap modelMap) {
-        Employee employee = employeeServiceImpl.getById(id);     //传递id给service
-        modelMap.addAttribute("employee", employee);        //把查询到的值的数据传递给前端页面
-        return "/pages/adminView/viewEmployee";
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Employee personDetail(@PathVariable("id") int id) {
+        return employeeServiceImpl.getById(id);
     }
 
     /**
