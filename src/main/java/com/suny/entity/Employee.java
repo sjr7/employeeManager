@@ -31,7 +31,7 @@ public class Employee implements Serializable{
     private String password;
 
     @Column(name = "emp_name")
-    private String userName;    //姓名
+    private String empName;    //姓名
 
     @Column(name = "emp_className")
     private String className;    //班级
@@ -49,6 +49,7 @@ public class Employee implements Serializable{
     @JoinColumn(name="mgr_id")
     @JsonIgnoreProperties
     private  Manager manager;
+
     //成员对应的签到记录
     @OneToMany(targetEntity = Attend.class,mappedBy = "employee")
     private Set<Attend> attends=new HashSet<>();
@@ -56,10 +57,10 @@ public class Employee implements Serializable{
     public Employee() {
     }
 
-    public Employee(String account, String password, String userName, String className, String tel, String bedroom) {
+    public Employee(String account, String password, String empName, String className, String tel, String bedroom) {
         this.account = account;
         this.password = password;
-        this.userName = userName;
+        this.empName = empName;
         this.className = className;
         this.tel = tel;
         this.bedroom = bedroom;
@@ -91,12 +92,12 @@ public class Employee implements Serializable{
         this.password = password;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getEmpName() {
+        return empName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setEmpName(String empName) {
+        this.empName = empName;
     }
 
 
@@ -147,7 +148,7 @@ public class Employee implements Serializable{
         return "Employee{" +
                 "id=" + id +
                 ", password='" + password + '\'' +
-                ", userName='" + userName + '\'' +
+                ", empName='" + empName + '\'' +
                 ", className='" + className + '\'' +
                 ", tel='" + tel + '\'' +
                 ", bedroom='" + bedroom + '\'' +

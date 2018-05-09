@@ -54,7 +54,7 @@ public class LoginController {
      * @param request request请求，包含用户页面相关的属性
      * @return 管理员页面
      */
-    @RequestMapping(value = {"/adminWeb", "", "/", "/index", "/index.jsp"})
+    @RequestMapping(value = {"/adminWeb", "", "/", "/index", "/index.jsp", "/login"})
     public String index(HttpServletRequest request) {
         String uri;       //定义一个跳转地址变量
         if (request.getSession().getAttribute("username") == null) {   //判断session中是否有记录，否则就重定向到登陆界面
@@ -110,7 +110,7 @@ public class LoginController {
                 modelAndView.setView(new RedirectView("login"));          //重定向到查看用户登陆页面
             } else {
                 Employee employee = empManagerServiceImpl.getByManagerAccount(account);    //查询id所对应的用户信息
-                request.getSession().setAttribute("username", employee.getUserName());   //把用户名保存到session里面
+                request.getSession().setAttribute("username", employee.getEmpName());   //把用户名保存到session里面
                 request.getSession().setAttribute("role", "admin");                       //保存用户角色到session中
                 modelAndView.setView(new RedirectView("adminWeb"));   //重定向到管理员的主页面
             }

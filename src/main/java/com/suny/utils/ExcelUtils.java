@@ -48,7 +48,7 @@ public class ExcelUtils {
             //中间空缺账号密码，为不提供下载信息
             //成员姓名
             cell = row1.createCell(3);
-            cell.setCellValue(employee.getUserName());
+            cell.setCellValue(employee.getEmpName());
             //所在班级
             cell = row1.createCell(4);
             cell.setCellValue(employee.getClassName());

@@ -46,7 +46,7 @@ public class EmployeeDao<T>{
         Employee employee1 = (Employee) getSession().get(Employee.class, id);    //获取要更改的对象类
         employee1.setBedroom(employee.getBedroom());                   //设置寝室号
         employee1.setClassName(employee.getClassName());           //设置班级名字
-        employee1.setUserName(employee.getUserName());         //设置姓名
+        employee1.setEmpName(employee.getEmpName());         //设置姓名
         employee1.setTel(employee.getTel());           //设置电话号码
         getSession().update(employee1);           //更新数据
         getSession().flush();          //刷新session
@@ -107,7 +107,7 @@ public class EmployeeDao<T>{
      * @return      返回模糊查询出来的一个集合对象
      */
     public Query getByName(String username) {
-        String hql = "from Employee where username like ?0";      //构建通过名字进行模糊查询
+        String hql = "from Employee where empName like ?0";      //构建通过名字进行模糊查询
         Query query = getSession().createQuery(hql);        //构建集合
         query.setParameter("0", "%" + username + "%");          //设置参数
         return query;                                       //返回查询集合给service进行判断

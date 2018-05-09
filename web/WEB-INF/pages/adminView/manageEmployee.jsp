@@ -100,12 +100,12 @@
 
                 <tr>
                     <td>${employee.id}</td>
-                    <td>${employee.userName}</td>
+                    <td>${employee.empName}</td>
                     <td>${employee.className}</td>
                     <td>${employee.manager.dept}</td>
                     <td><a class="btn btn-info" id="updateEmployee" onclick="editEmployee(${employee.id})">修改</a>
                     </td>
-                        <%--<td><a onclick="delConfirm()" href="${pageContext.request.contextPath}/employee/deleteOperation/${employee.id}"--%>
+                        <%--<td><a onclick="delConfirm()" href="${pageContext.request.contextPath}/employee/delete/${employee.id}"--%>
                     <td><a onclick="delConfirm()" class="btn btn-danger delete">删除</a></td>
                         <%--<td><a href="${pageContext.request.contextPath}/ViewEmployee/${s.num}" class="btn btn-success">查看</a>--%>
                     </td>
@@ -122,23 +122,23 @@
     </table>
     <c:if test="${! empty page}">
         <a href="${pageContext.request.contextPath}/employee/manageEmployeeList?currentPage=${page.getTopPageNo()}"
-           class="btn btn-primary btn-lg">首页</a>
+           class="btn btn-primary ">首页</a>
         <a href="${pageContext.request.contextPath}/employee/manageEmployeeList?currentPage=${page.getPrevious()}"
-           class="btn btn-success btn-lg">上一页</a><a
+           class="btn btn-success ">上一页</a><a
             href="${pageContext.request.contextPath}/employee/manageEmployeeList?currentPage=${page.getNext()}"
-            class="btn btn-info btn-lg">下一页</a>
+            class="btn btn-info ">下一页</a>
         <a href="${pageContext.request.contextPath}/employee/manageEmployeeList?currentPage=${page.getBottom()}"
-           class="btn btn-warning btn-lg">末页</a>
+           class="btn btn-warning ">末页</a>
     </c:if>
     <c:if test="${ empty page}">
         <a href="${pageContext.request.contextPath}/employee/manageEmployeeList?currentPage=1"
-           class="btn btn-primary btn-lg">首页</a>
+           class="btn btn-primary ">首页</a>
         <a href="#"
-           class="btn btn-success btn-lg">上一页</a>
+           class="btn btn-success ">上一页</a>
         <a href="#"
-           class="btn btn-info btn-lg">下一页</a>
+           class="btn btn-info ">下一页</a>
         <a href="#"
-           class="btn btn-warning btn-lg">末页</a>
+           class="btn btn-warning ">末页</a>
     </c:if>
 
     总记录数${page.totalCount}
@@ -153,7 +153,7 @@
 </select>
     页/${page.getTotalPage()}
 
-    <a href="${pageContext.request.contextPath}/employee/viewAddOperation" class="btn btn-warning btn-lg">添加学生数据</a>
+    <button class="btn btn-warning " onclick="addEmployee()">添加学生数据</button>
 
     <form action="${pageContext.request.contextPath}/file/uploadDatabase" enctype="multipart/form-data" method="post">
         <input type="file" name="file" id="ExcelFile">
@@ -183,8 +183,6 @@
     </div>
 
     <%--修改资料拟态框--%>
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">修改数据</button>
-    <!-- 模态框（Modal） -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true" style="height: 500px">
         <div class="modal-dialog">
@@ -205,8 +203,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="userName">姓名</label>
-                        <input type="text" class="form-control " id="userName" name="userName" required/><br>
+                        <label for="empName">姓名</label>
+                        <input type="text" class="form-control " id="empName" name="empName" required/><br>
                     </div>
 
 
@@ -229,7 +227,61 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary">提交更改</button>
+                    <button type="button" class="btn btn-primary" onclick="valid('update')">确定修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%--添加信息框--%>
+    <div class="modal fade" id="addEmployeeModalLabel" tabindex="-1" role="dialog"
+         aria-labelledby="addEmployeeModalLabel"
+         aria-hidden="true" style="height: 500px">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">添加数据</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label style="display: none" for="id">id</label>
+                        <input type="hidden" class="form-control " id="id_" name="id" required/>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="empName">姓名</label>
+                        <input type="text" class="form-control " id="empName_" name="empName" required title=""/><br>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="className">班级</label>
+                        <input type="text" class="form-control " id="className_" name="className" required
+                               title=" "/><br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="teacher">班主任</label>
+                        <input type="text" class="form-control " id="teacher" name="teacher" required title=" "/><br>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="tel">电话</label>
+                        <input type="text" class="form-control " id="tel_" name="tel" required title=""/><br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bedroom">寝室号</label>
+                        <input type="text" class="form-control " id="bedroom_" name="bedroom" required title=" "/><br>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" onclick="valid('add')">提交更改</button>
                 </div>
             </div>
         </div>
@@ -237,6 +289,71 @@
 </div>
 
 <script>
+    $(function () {
+        /*$("#id,#id_").blur(function () {
+            var val = this.value;
+            val = $.trim(val);
+            this.value = val;
+            var reg = /^[0-9]*$/;
+            if (!reg.test(val)) {
+                alert("学号只运行输入数字");
+            }
+        });
+        $("#empName,#empName").blur(function () {
+            var val = this.value;
+            val = $.trim(val);
+            this.value = val;
+            var reg = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
+            if (!reg.test(val)) {
+                alert("姓名只能为汉字");
+            }
+        });
+        $("#sex,#sex_").blur(function () {
+            var val = this.value;
+            val = $.trim(val);
+            this.value = val;
+            reg = /[\u4E00-\u9FA5]/;
+            if (!reg.test(val)) {
+                alert("性别只能为男或者女");
+            }
+        });
+        $("#bedroom,#bedroom_").blur(function () {
+            var val = this.value;
+            val = $.trim(val);
+            this.value = val;
+            var reg = /^[0-9]\#\d{3}$/;   //匹配第一个为0-9当中的一个，、#为普通字符#，\d为允许出现数字,{3}为出现3次
+            if (!reg.test(val)) {
+                alert("寝室号样例为  4#608  ，按照自身寝室号修改");
+            }
+        });
+        $("#tel,#tel_").blur(function () {
+            var val = this.value;
+            val = $.trim(val);
+            this.value = val;
+            var reg = /^1[0-9]{10}$/;
+            if (!reg.test(val)) {
+                alert("电话号码为中国大陆普通11位电话号码");
+            }
+        });*/
+
+
+    });
+
+
+    $("#submit").click(function () {
+        var flag = confirm("你确定要提交吗?");
+        if (!flag) {
+            return false;
+        }
+        var adress = $("#employee_adress").value();
+        var id = $("#employee_id").value();
+        var name = $("#employee_name").value();
+        var sex = $("#employee_sex").value();
+        var room = $("#employee_room").value();
+        var employeetel = $("#employee_tel").value();
+        var parenttel = $("#Parents_tel").value();
+    })
+
     function delConfirm(employeeId) {
         $("#delModel").modal({
             show: true,
@@ -248,7 +365,6 @@
     function editEmployee(employeeId) {
         $.ajax({
             url: "${pageContext.request.contextPath}/employee/" + employeeId, success: function (employee) {
-                console.log(employee);
                 $("#id").val(employee.id);
                 $("#account").val(employee.account);
                 $("#userName").val(employee.userName);
@@ -261,6 +377,54 @@
                 });
             }
         });
+
+    }
+
+    function updateEmployeeAction() {
+        console.log('updateAction');
+        $('#myModal').modal({
+            show: false,
+            backdrop: false
+        });
+    }
+
+    function addEmployee() {
+        $('#addEmployeeModalLabel').modal({
+            show: true,
+            backdrop: false
+        });
+
+    }
+
+    function addEmployeeAction() {
+        console.log('addAction');
+        $.ajax({
+            url: "${pageContext.request.contextPath}/employee/add", success: function (employee) {
+                $("#id_").val(employee.id);
+                $("#account_").val(employee.account);
+                $("#userName_").val(employee.userName);
+                $("#className_").val(employee.className);
+                $("#teacher").val(employee.teacher);
+                $("#tel_").val(employee.tel);
+                $("#bedroom_").val(employee.bedroom);
+                $('#myModal_').modal({
+                    show: false,
+                    backdrop: false
+                });
+            }
+        });
+
+    }
+
+
+    function valid(type) {
+
+
+        if (type === 'add') {
+            addEmployeeAction();
+        } else if (type === 'update') {
+            updateEmployeeAction();
+        }
 
     }
 

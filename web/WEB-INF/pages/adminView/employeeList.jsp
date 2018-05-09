@@ -109,18 +109,18 @@
         </tr>
         </thead>
 
-        <c:if test="${empty employeeList}">
+        <c:if test="${empty page.pageDate}">
             <tr>
                 <td colspan="8">成员数据为空</td>
             </tr>
         </c:if>
-        <c:if test="${!empty employeeList}">
+        <c:if test="${!empty page.pageDate}">
             <tbody>
-            <c:forEach items="${employeeList}" var="employee">
+            <c:forEach items="${page.pageDate}" var="employee">
 
                 <tr>
                     <td>${employee.id}</td>
-                    <td>${employee.userName}</td>
+                    <td>${employee.empName}</td>
                     <td>${employee.className}</td>
                     <td>${employee.tel}</td>
                     <td>${employee.bedroom}</td>
@@ -171,7 +171,7 @@
     页/${page.getTotalPage()}
 
 
-    <a href="${pageContext.request.contextPath}/file/databaseDownload" class="btn btn-success ">下载为Excel数据</a>
+    <a href="${pageContext.request.contextPath}/file/databaseDownload" class="btn btn-success disabled">下载为Excel数据</a>
 </div>
 </body>
 </html>

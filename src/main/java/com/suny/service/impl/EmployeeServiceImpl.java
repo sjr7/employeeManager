@@ -154,6 +154,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param currentPage 前端传来的当前页页码
      * @return 通过用户名查询的记录，然后再进行分页后的数据
      */
+    @SuppressWarnings("Duplicates")
     @Override
     public Page getByName(String username, int pageCount, int currentPage) {
         Page<Employee> page = new Page<>();                             //实例化page工具类
