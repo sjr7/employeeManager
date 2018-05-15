@@ -124,10 +124,10 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li role="presentation">
-                    <a href="#">当前用户：<span class="badge">${userName}</span></a>
+                    <a href="#">当前用户：<span class="badge">${empName}</span></a>
                 </li>
                 <li>
-                    <a href="${pageContext.request.contextPath}/user/logout">
+                    <a href="${pageContext.request.contextPath}/logout">
                         <span class="glyphicon glyphicon-lock"></span>退出登录</a>
                 </li>
             </ul>
@@ -165,7 +165,7 @@
                     </li>
 
                     <li>
-                        <a href="#" target="mainFrame">查看个人信息</a>
+                        <a href="#">查看个人信息</a>
                     </li>
                 </ul>
             </li>

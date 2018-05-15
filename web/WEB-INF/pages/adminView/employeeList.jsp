@@ -171,7 +171,7 @@
     页/${page.getTotalPage()}
 
 
-    <a href="${pageContext.request.contextPath}/file/databaseDownload" class="btn btn-success disabled">下载为Excel数据</a>
+    <a href="${pageContext.request.contextPath}/employee/downloadExcel" class="btn btn-success disabled">下载为Excel数据</a>
 </div>
 </body>
 </html>

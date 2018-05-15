@@ -10,9 +10,9 @@ public interface EmployeeService {
 
     void checkPassword(String username, String oldPassword, String newPassword);
 
-    void modifyOperation(Employee employee, Integer id);
+    void update(Employee employee, Integer id);
 
-    void addOperation(Employee employee);
+    void add(Employee employee);
 
     List getAllStudentDetails();
 
@@ -24,7 +24,7 @@ public interface EmployeeService {
 
     Employee getById(Integer id);
 
-    void deleteOperation(Integer id);
+    void del(Integer id);
 
     int getMaxPage(int pageCount);
 }

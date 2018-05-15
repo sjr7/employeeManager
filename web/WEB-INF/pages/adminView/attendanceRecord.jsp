@@ -103,7 +103,7 @@
                     <td>${employee.dutyDay}</td>
                     <td>${employee.punchTime}</td>
                     <td>${employee.attendType.name}</td>
-                    <td>${employee.employee.userName}</td>
+                    <td>${employee.employee.empName}</td>
 
 
                 </tr>
@@ -117,23 +117,23 @@
     </table>
     <c:if test="${! empty page}">
         <a href="${pageContext.request.contextPath}/attend/attendRecord?currentPage=${page.getTopPageNo()}"
-           class="btn btn-primary btn-lg">首页</a>
+           class="btn btn-primary ">首页</a>
         <a href="${pageContext.request.contextPath}/attend/attendRecord?currentPage=${page.getPrevious()}"
-           class="btn btn-success btn-lg">上一页</a><a
+           class="btn btn-success ">上一页</a><a
             href="${pageContext.request.contextPath}/attend/attendRecord?currentPage=${page.getNext()}"
-            class="btn btn-info btn-lg">下一页</a>
+            class="btn btn-info ">下一页</a>
         <a href="${pageContext.request.contextPath}/attend/attendRecord?currentPage=${page.getBottom()}"
-           class="btn btn-warning btn-lg">末页</a>
+           class="btn btn-warning ">末页</a>
     </c:if>
     <c:if test="${ empty page}">
         <a href="${pageContext.request.contextPath}/attend/attendRecord?currentPage=1"
-           class="btn btn-primary btn-lg">首页</a>
+           class="btn btn-primary ">首页</a>
         <a href="#"
-           class="btn btn-success btn-lg">上一页</a>
+           class="btn btn-success ">上一页</a>
         <a href="#"
-           class="btn btn-info btn-lg">下一页</a>
+           class="btn btn-info ">下一页</a>
         <a href="#"
-           class="btn btn-warning btn-lg">末页</a>
+           class="btn btn-warning ">末页</a>
     </c:if>
 
     总记录数${page.totalCount}

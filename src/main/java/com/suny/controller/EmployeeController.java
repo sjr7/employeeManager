@@ -2,6 +2,7 @@ package com.suny.controller;
 
 import com.suny.entity.Employee;
 import com.suny.service.EmployeeService;
+import com.suny.utils.ExcelUtils;
 import com.suny.utils.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -80,7 +84,7 @@ public class EmployeeController {
      */
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public String update(@PathVariable("id") Integer id, Employee employee) {
-        employeeServiceImpl.modifyOperation(employee, id);                       //把要修改的成员信息页面提交给service
+        employeeServiceImpl.update(employee, id);                       //把要修改的成员信息页面提交给service
         return "redirect:/manageEmployeeAction/manageEmployee";      //重定向到成员管理页面
     }
 
@@ -95,7 +99,7 @@ public class EmployeeController {
     public String updatePage(@PathVariable("id") Integer id, ModelMap modelMap) {
         Employee employee = employeeServiceImpl.getById(id);           //获取要修改的成员信息
         modelMap.addAttribute("employee", employee);             //把获取到的成员信息放到modelMap里面
-        return "/pages/adminView/viewModifyOperation";               //进入修改成员信息页面
+        return "pages/adminView/update";               //进入修改成员信息页面
     }
 
     /**
@@ -106,7 +110,7 @@ public class EmployeeController {
      */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") Integer id) {
-        employeeServiceImpl.deleteOperation(id);            //传入要删除的成员的id
+        employeeServiceImpl.del(id);            //传入要删除的成员的id
         return "redirect:/employee/manageEmployeeList";
     }
 
@@ -118,7 +122,7 @@ public class EmployeeController {
      */
     @RequestMapping("/add")
     public String add(Employee employee) {
-        employeeServiceImpl.addOperation(employee);      //把employee对象传到数据操作层进行保存
+        employeeServiceImpl.add(employee);      //把employee对象传到数据操作层进行保存
         return "redirect:/employee/manageEmployeeList";
     }
 
@@ -213,6 +217,35 @@ public class EmployeeController {
         modelMap.addAttribute("page", page);            //添加分页对象到modelMap里面
 
         return "pages/adminView/employeeList";      //进行成员信息列表页面
+    }
+
+    /**
+     * 下载数据库中的成员信息，然后保存到excel表格中
+     *
+     * @param request  用户请求相关
+     * @param response 服务器对用户请求的响应
+     * @throws IOException 抛出IO流异常
+     */
+    @RequestMapping("/downloadExcel")
+    public void downloadExcel(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        /**
+         * 如果文件名有中文的话，进行URL编码，让中文正常显示
+         response.addHeader("Content-Disposition","attachment; filename=" + URLEncoder.encode(fileName, "UTF-8"));
+         */
+        String fileName = System.currentTimeMillis() + ".xlsx";                                      //系统生成的文件名
+        String FileDir = request.getServletContext().getRealPath("/files/" + fileName);
+        List list = employeeServiceImpl.getAllStudentDetails();//构建一个Excel文件
+        ExcelUtils.buildExcel(FileDir, list);                                              //传入service
+        String dataDirectory = request.getServletContext().getRealPath("/files");           //获取要下载的文件文件目录
+        Path file = Paths.get(dataDirectory, fileName);                                     //获取一个文件
+        if (Files.exists(file)) {                                                      //如果文件存在的情况下
+            response.setContentType("application/octet-stream");                        //响应请求添加类型
+            response.addHeader("Content-Disposition", "attachment; filename=" + fileName);    //添加响应头，发送给客户端的文件名
+            try {
+                Files.copy(file, response.getOutputStream());
+            } catch (IOException ignored) {
+            }
+        }
     }
 
 

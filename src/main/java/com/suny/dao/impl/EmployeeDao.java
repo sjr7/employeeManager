@@ -95,7 +95,7 @@ public class EmployeeDao<T>{
      * @return    一个employee对象，对应的是一个用户的信息
      */
     public Employee findByEmpName(String username) {
-        String hql = "from Employee where username= ?0";      //构建通过名字查询
+        String hql = "from Employee where empName= ?0";      //构建通过名字查询
         Query query = getSession().createQuery(hql);        //构建集合
         query.setParameter("0",username );          //设置参数
         return (Employee) query.uniqueResult();      //返回查询用户名的唯一结果

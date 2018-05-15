@@ -91,7 +91,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param id       要修改数据的employee的主键标示id
      */
     @Override
-    public void modifyOperation(Employee employee, Integer id) {
+    public void update(Employee employee, Integer id) {
         employeeDao.modifyOperation(employee, id);     //向employeeDao传递要修改的成员数据跟id
     }
 
@@ -101,7 +101,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param employee 要增加的成员信息对象
      */
     @Override
-    public void addOperation(Employee employee) {
+    public void add(Employee employee) {
         employeeDao.addOperation(employee);    //向employeeDao传递要增加的成员数据
     }
 
@@ -186,7 +186,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param id 要删除的成员的主键标识id
      */
     @Override
-    public void deleteOperation(Integer id) {
+    public void del(Integer id) {
         employeeDao.deleteOperation(id);      //给dao层传递删除的成员id
     }
 

@@ -29,7 +29,7 @@ import java.util.List;
  * 2016/11/10 22:15
  */
 @Controller
-@RequestMapping("/file")
+@RequestMapping("/files")
 public class FileSourceController implements ServletContextAware {
 
     //自动装配
@@ -47,13 +47,13 @@ public class FileSourceController implements ServletContextAware {
      * @param request  用户请求相关
      * @param response 服务器对用户请求的响应
      * @throws IOException 抛出IO流异常
-     */
+     *//*
     @RequestMapping("/databaseDownload")
     public void databaseDownload(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        /**
+        *//**
          * 如果文件名有中文的话，进行URL编码，让中文正常显示
          response.addHeader("Content-Disposition","attachment; filename=" + URLEncoder.encode(fileName, "UTF-8"));
-         */
+     *//*
         String fileName = System.currentTimeMillis() + ".xlsx";                                      //系统生成的文件名
         String FileDir = request.getServletContext().getRealPath("/files/" + fileName);
         List list = employeeServiceImpl.getAllStudentDetails();//构建一个Excel文件
@@ -68,7 +68,7 @@ public class FileSourceController implements ServletContextAware {
             } catch (IOException ignored) {
             }
         }
-    }
+    }*/
 
     /**
      * 下载Excel数据文件模板,给管理员一个数据上传的模板，在模板的基础上进行修改
@@ -98,7 +98,7 @@ public class FileSourceController implements ServletContextAware {
      */
     @RequestMapping(value = "viewUploadExcel")
     public String viewUploadExcel() {
-        return "/pages/adminView/UploadExcel";        //返回到上传Excel数据页面
+        return "pages/adminView/uploadExcel";        //返回到上传Excel数据页面
     }
 
     /**
@@ -109,7 +109,7 @@ public class FileSourceController implements ServletContextAware {
      * @throws IOException 抛出处理IO流异常
      */
     @RequestMapping(value = "uploadDatabase", method = RequestMethod.POST)
-    public String uploadDatabase(@RequestParam("file") MultipartFile multipartFile) throws IOException {
+    public String uploadDatabase(@RequestParam("files") MultipartFile multipartFile) throws IOException {
         CommonsMultipartFile Cfile = (CommonsMultipartFile) multipartFile;        //获取表单上传的文件
         DiskFileItem diskFileItem = (DiskFileItem) Cfile.getFileItem();                //获取文件条目
         File file = diskFileItem.getStoreLocation();                                 //获取文件数据
